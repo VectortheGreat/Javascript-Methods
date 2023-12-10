@@ -6,8 +6,8 @@ const Navbar = () => {
     Integer: "/integer",
     Array: "/array",
     Date: "/date",
-    Number: "/number",
     Json: "/json",
+    Math: "/math",
   };
   return (
     <nav className="bg-yellow-300 p-4">

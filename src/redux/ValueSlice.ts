@@ -2,11 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   input: "",
-  input2: "",
+  parameter1: "",
+  parameter2: "",
+  parameter3: "",
+  parameter4: "",
   output: "",
-  parameterValues: [],
   queryParam: "",
-  hideInputs: { hideInput2: false, hideParameter: false },
+  hideInputs: {
+    hideParameter1: false,
+    hideParameter2: false,
+    hideParameter3: false,
+    hideParameter4: false,
+  },
+  optionalParameters: {
+    optionalParameter1: false,
+    optionalParameter2: false,
+    optionalParameter3: false,
+    optionalParameter4: false,
+  },
 };
 
 const ValueSlice = createSlice({
@@ -16,19 +29,20 @@ const ValueSlice = createSlice({
     getInput: (state, action) => {
       state.input = action.payload;
     },
-    getInput2: (state, action) => {
-      state.input2 = action.payload;
+    getParameter1: (state, action) => {
+      state.parameter1 = action.payload;
+    },
+    getParameter2: (state, action) => {
+      state.parameter2 = action.payload;
+    },
+    getParameter3: (state, action) => {
+      state.parameter3 = action.payload;
+    },
+    getParameter4: (state, action) => {
+      state.parameter4 = action.payload;
     },
     getOutput: (state, action) => {
       state.output = action.payload;
-    },
-    getParameterValues: (state, action) => {
-      const inputValue = action.payload;
-      const valuesArray = inputValue
-        .split(",")
-        .map((value: string) => value.trim());
-      state.parameterValues = valuesArray;
-      console.log(state.parameterValues);
     },
     setQueryParam: (state, action) => {
       state.queryParam = action.payload;
@@ -36,16 +50,25 @@ const ValueSlice = createSlice({
     setHideInputs: (state, action) => {
       state.hideInputs = { ...state.hideInputs, ...action.payload };
     },
+    setOptionalParameters: (state, action) => {
+      state.optionalParameters = {
+        ...state.optionalParameters,
+        ...action.payload,
+      };
+    },
   },
 });
 
 export const {
   getInput,
   getOutput,
-  getParameterValues,
-  getInput2,
+  getParameter1,
+  getParameter2,
+  getParameter3,
+  getParameter4,
   setQueryParam,
   setHideInputs,
+  setOptionalParameters,
 } = ValueSlice.actions;
 
 export default ValueSlice.reducer;

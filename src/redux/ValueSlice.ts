@@ -9,16 +9,22 @@ const initialState = {
   output: "",
   queryParam: "",
   hideInputs: {
-    hideParameter1: false,
-    hideParameter2: false,
-    hideParameter3: false,
-    hideParameter4: false,
+    hideParameter1: true,
+    hideParameter2: true,
+    hideParameter3: true,
+    hideParameter4: true,
   },
   optionalParameters: {
     optionalParameter1: false,
     optionalParameter2: false,
     optionalParameter3: false,
     optionalParameter4: false,
+  },
+  parameterDescriptions: {
+    parameterDescriptions1: "",
+    parameterDescriptions2: "",
+    parameterDescriptions3: "",
+    parameterDescriptions4: "",
   },
 };
 
@@ -56,6 +62,12 @@ const ValueSlice = createSlice({
         ...action.payload,
       };
     },
+    setParameterDescriptions: (state, action) => {
+      state.parameterDescriptions = {
+        ...state.parameterDescriptions,
+        ...action.payload,
+      };
+    },
   },
 });
 
@@ -69,6 +81,7 @@ export const {
   setQueryParam,
   setHideInputs,
   setOptionalParameters,
+  setParameterDescriptions,
 } = ValueSlice.actions;
 
 export default ValueSlice.reducer;

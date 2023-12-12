@@ -7,6 +7,12 @@ import {
   getParameter4,
 } from "../../redux/ValueSlice";
 import { useEffect } from "react";
+import { FaDice } from "react-icons/fa6";
+import {
+  stringInputRandomizer,
+  stringParameter1Randomizer,
+} from "../../helpers/stringRandomizer";
+import { useLocation } from "react-router-dom";
 
 const FormComp = () => {
   const dispatch = useDispatch();
@@ -42,18 +48,22 @@ const FormComp = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (state: { value: any }) => state.value.optionalParameters
   );
+  const parameterDescriptions = useSelector(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (state: { value: any }) => state.value.parameterDescriptions
+  );
   const placeholderValue1 = optionalParameters.optionalParameter1
-    ? "Parameter 1 (Optional)"
-    : "Parameter 1 (Required)";
+    ? `Parameter 1 (Optional) - ${parameterDescriptions.parameterDescriptions1}`
+    : `Parameter 1 (Required) - ${parameterDescriptions.parameterDescriptions1}`;
   const placeholderValue2 = optionalParameters.optionalParameter2
-    ? "Parameter 2 (Optional)"
-    : "Parameter 2 (Required)";
+    ? `Parameter 2 (Optional) - ${parameterDescriptions.parameterDescriptions2}`
+    : `Parameter 2 (Required) - ${parameterDescriptions.parameterDescriptions2}`;
   const placeholderValue3 = optionalParameters.optionalParameter3
-    ? "Parameter 3 (Optional)"
-    : "Parameter 3 (Required)";
+    ? `Parameter 3 (Optional) - ${parameterDescriptions.parameterDescriptions3}`
+    : `Parameter 3 (Required) - ${parameterDescriptions.parameterDescriptions3}`;
   const placeholderValue4 = optionalParameters.optionalParameter4
-    ? "Parameter 4 (Optional)"
-    : "Parameter 4 (Required)";
+    ? `Parameter 4 (Optional) - ${parameterDescriptions.parameterDescriptions4}`
+    : `Parameter 4 (Required) - ${parameterDescriptions.parameterDescriptions4}`;
   useEffect(() => {
     dispatch(getInput(""));
     dispatch(getParameter1(""));
@@ -61,27 +71,112 @@ const FormComp = () => {
     dispatch(getParameter3(""));
     dispatch(getParameter4(""));
   }, [queryParam]);
+
+  const location = useLocation();
+
+  const inputRandomizerFunc = () => {
+    const pathname = location.pathname.split("/")[1];
+    const randomNumber = Math.floor(Math.random() * 5);
+    const randomNumber2 = Math.floor(Math.random() * 5);
+    const randomNumber3 = Math.floor(Math.random() * 5);
+    const value =
+      stringInputRandomizer[queryParam as keyof typeof stringInputRandomizer][
+        randomNumber
+      ];
+    const parameterValue =
+      stringParameter1Randomizer[
+        queryParam as keyof typeof stringParameter1Randomizer
+      ][randomNumber2];
+    const parameterValue2 =
+      stringParameter1Randomizer[
+        queryParam as keyof typeof stringParameter1Randomizer
+      ][randomNumber3];
+
+    if (pathname === "string") {
+      switch (queryParam) {
+        case "charat":
+          dispatch(getInput(value));
+          dispatch(getParameter1(randomNumber));
+          break;
+        case "concat":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "endswith":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "includes":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "indexof":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "lastindexof":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "padend":
+          dispatch(getInput(value));
+          dispatch(
+            getParameter1(Math.floor(Math.random() * (60 - 30 + 1) + 30))
+          );
+          dispatch(getParameter2(parameterValue));
+          break;
+        case "padstart":
+          dispatch(getInput(value));
+          dispatch(
+            getParameter1(Math.floor(Math.random() * (60 - 30 + 1) + 30))
+          );
+          dispatch(getParameter2(parameterValue));
+          break;
+        case "repeat":
+          dispatch(getInput(value));
+          dispatch(getParameter1(Math.floor(Math.random() * (60 - 5 + 1) + 5)));
+          break;
+        case "replace":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          dispatch(getParameter2(parameterValue2));
+          break;
+
+        default:
+          console.error("Invalid queryParam");
+          break;
+      }
+    }
+  };
+
   return (
     <form
       onSubmit={testfunc}
       className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md"
     >
       <div className="mb-4 space-y-4">
-        <input
-          type="text"
-          id="input"
-          name="input"
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          placeholder="Input"
-          value={input}
-          onChange={(e) => dispatch(getInput(e.target.value))}
-        />
+        <div className="relative">
+          <textarea
+            rows={2}
+            id="input"
+            name="input"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 resize-none"
+            placeholder="Input"
+            value={input}
+            onChange={(e) => dispatch(getInput(e.target.value))}
+          />
+          <FaDice
+            className="absolute right-0 top-0 mt-2 mr-2 cursor-pointer"
+            size={18}
+            onClick={inputRandomizerFunc}
+          />
+        </div>
         {hideInputs.hideParameter1 ? null : (
           <input
             type="text"
             id="input2"
             name="input2"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 resize-none"
             placeholder={placeholderValue1}
             value={parameter1}
             onChange={(e) => dispatch(getParameter1(e.target.value))}
@@ -92,7 +187,7 @@ const FormComp = () => {
             type="text"
             id="input"
             name="input"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 resize-none"
             placeholder={placeholderValue2}
             value={parameter2}
             onChange={(e) => dispatch(getParameter2(e.target.value))}
@@ -103,7 +198,7 @@ const FormComp = () => {
             type="text"
             id="input"
             name="input"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 resize-none"
             placeholder={placeholderValue3}
             value={parameter3}
             onChange={(e) => dispatch(getParameter3(e.target.value))}
@@ -114,7 +209,7 @@ const FormComp = () => {
             type="text"
             id="input"
             name="input"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 resize-none"
             placeholder={placeholderValue4}
             value={parameter4}
             onChange={(e) => dispatch(getParameter4(e.target.value))}
@@ -126,22 +221,22 @@ const FormComp = () => {
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Output
         </label>
-        <input
+        <textarea
           disabled
-          type="text"
           id="output"
           name="output"
           value={output}
-          className="w-full px-3 py-2 border rounded-md bg-gray-100"
+          rows={4}
+          className="w-full px-3 py-2 border rounded-md bg-gray-100 resize-none"
         />
       </div>
 
-      <button
+      {/* <button
         type="submit"
         className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
       >
         Submit
-      </button>
+      </button> */}
     </form>
   );
 };

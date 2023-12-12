@@ -8,6 +8,7 @@ import {
   getOutput,
   setHideInputs,
   setOptionalParameters,
+  setParameterDescriptions,
   setQueryParam,
 } from "../../../redux/ValueSlice";
 
@@ -57,11 +58,9 @@ const StringMethods = () => {
   const parameter4 = useSelector(
     (state: { value: { parameter4: string } }) => state.value.parameter4
   );
-
   useEffect(() => {
     dispatch(setQueryParam(location.search.split("=")[1]));
   }, [dispatch, location.search]);
-
   useEffect(() => {
     switch (queryParam) {
       case "charat":
@@ -80,6 +79,14 @@ const StringMethods = () => {
             optionalParameter2: false,
             optionalParameter3: false,
             optionalParameter4: false,
+          })
+        );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Index Number",
+            parameterDescriptions2: "",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
           })
         );
         break;
@@ -111,6 +118,14 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "String Value",
+            parameterDescriptions2: "String Value",
+            parameterDescriptions3: "String Value",
+            parameterDescriptions4: "String Value",
+          })
+        );
         break;
       case "endswith":
         dispatch(
@@ -136,6 +151,14 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Search String",
+            parameterDescriptions2: "End Position Number",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
         break;
       case "includes":
         dispatch(
@@ -146,11 +169,65 @@ const StringMethods = () => {
           )
         );
         dispatch(
+          setHideInputs({
+            hideParameter1: false,
+            hideParameter2: false,
+            hideParameter3: true,
+            hideParameter4: true,
+          })
+        );
+        dispatch(
           setOptionalParameters({
             optionalParameter1: false,
-            optionalParameter2: false, // TODO - sayfa yenilediğinde işe yaramıyor
+            optionalParameter2: true,
             optionalParameter3: true,
             optionalParameter4: true,
+          })
+        );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Search String",
+            parameterDescriptions2: "Position Number",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
+        break;
+      case "indexof":
+        dispatch(getOutput(input.indexOf(parameter1, parameter2)));
+        dispatch(
+          setHideInputs({
+            hideParameter1: false,
+            hideParameter2: false,
+            hideParameter3: true,
+            hideParameter4: true,
+          })
+        );
+        dispatch(
+          setOptionalParameters({
+            optionalParameter1: false,
+            optionalParameter2: true,
+            optionalParameter3: true,
+            optionalParameter4: true,
+          })
+        );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Search String",
+            parameterDescriptions2: "Position Number",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
+        break;
+      case "lastindexof":
+        dispatch(getOutput(input.lastIndexOf(parameter1)));
+        dispatch(
+          setHideInputs({
+            hideParameter1: false,
+            hideParameter2: false,
+            hideParameter3: true,
+            hideParameter4: true,
           })
         );
         dispatch(
@@ -161,42 +238,12 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
-        break;
-      case "indexof":
-        dispatch(getOutput(input.indexOf(parameter1)));
         dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: true,
-            hideParameter3: true,
-            hideParameter4: true,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
-          })
-        );
-        break;
-      case "lastindexof":
-        dispatch(getOutput(input.lastIndexOf(parameter1)));
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: true,
-            hideParameter3: true,
-            hideParameter4: true,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
+          setParameterDescriptions({
+            parameterDescriptions1: "Search String",
+            parameterDescriptions2: "Position Number",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
           })
         );
         break;
@@ -218,6 +265,14 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Max Length Number",
+            parameterDescriptions2: "Fill String",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
         break;
       case "padstart":
         dispatch(getOutput(input.padStart(parameter1, parameter2)));
@@ -235,6 +290,14 @@ const StringMethods = () => {
             optionalParameter2: false,
             optionalParameter3: true,
             optionalParameter4: true,
+          })
+        );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Max Length Number",
+            parameterDescriptions2: "Fill String",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
           })
         );
         break;
@@ -256,6 +319,14 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Count Number",
+            parameterDescriptions2: "",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
         break;
       case "replace":
         dispatch(getOutput(input.replace(parameter1, parameter2)));
@@ -273,6 +344,14 @@ const StringMethods = () => {
             optionalParameter2: false,
             optionalParameter3: true,
             optionalParameter4: true,
+          })
+        );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "String to Change",
+            parameterDescriptions2: "String to Replace",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
           })
         );
         break;
@@ -294,6 +373,14 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Strings to Change",
+            parameterDescriptions2: "Strings to Replace",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
         break;
       case "search":
         dispatch(getOutput(input.search(parameter1)));
@@ -311,6 +398,14 @@ const StringMethods = () => {
             optionalParameter2: true,
             optionalParameter3: true,
             optionalParameter4: true,
+          })
+        );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Search Value",
+            parameterDescriptions2: "",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
           })
         );
         break;
@@ -338,6 +433,14 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Start Number",
+            parameterDescriptions2: "End Number",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
         break;
       case "split":
         dispatch(
@@ -363,6 +466,14 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Separator Value",
+            parameterDescriptions2: "Limit Number",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
         break;
       case "startswith":
         dispatch(getOutput(input.startsWith(parameter1, parameter2)));
@@ -380,6 +491,14 @@ const StringMethods = () => {
             optionalParameter2: true,
             optionalParameter3: true,
             optionalParameter4: true,
+          })
+        );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Search String",
+            parameterDescriptions2: "Position Number",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
           })
         );
         break;
@@ -407,6 +526,14 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "Start Number",
+            parameterDescriptions2: "End Number",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
         break;
       case "tolowercase":
         dispatch(getOutput(input.toLowerCase()));
@@ -424,6 +551,14 @@ const StringMethods = () => {
             optionalParameter2: true,
             optionalParameter3: true,
             optionalParameter4: true,
+          })
+        );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "",
+            parameterDescriptions2: "",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
           })
         );
         break;
@@ -445,6 +580,14 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "",
+            parameterDescriptions2: "",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
         break;
       case "touppercase":
         dispatch(getOutput(input.toUpperCase()));
@@ -462,6 +605,14 @@ const StringMethods = () => {
             optionalParameter2: true,
             optionalParameter3: true,
             optionalParameter4: true,
+          })
+        );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "",
+            parameterDescriptions2: "",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
           })
         );
         break;
@@ -483,6 +634,14 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "",
+            parameterDescriptions2: "",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
         break;
       case "trimend":
         dispatch(getOutput(input.trimEnd()));
@@ -502,6 +661,14 @@ const StringMethods = () => {
             optionalParameter4: true,
           })
         );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "",
+            parameterDescriptions2: "",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
+          })
+        );
         break;
       case "trimstart":
         dispatch(getOutput(input.trimStart()));
@@ -519,6 +686,14 @@ const StringMethods = () => {
             optionalParameter2: true,
             optionalParameter3: true,
             optionalParameter4: true,
+          })
+        );
+        dispatch(
+          setParameterDescriptions({
+            parameterDescriptions1: "",
+            parameterDescriptions2: "",
+            parameterDescriptions3: "",
+            parameterDescriptions4: "",
           })
         );
         break;

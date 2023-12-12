@@ -10,9 +10,10 @@ import { useEffect } from "react";
 import { FaDice } from "react-icons/fa6";
 import {
   stringInputRandomizer,
-  stringParameter1Randomizer,
+  stringParameterRandomizer,
 } from "../../helpers/stringRandomizer";
 import { useLocation } from "react-router-dom";
+import { printCode } from "../../helpers/printCode";
 
 const FormComp = () => {
   const dispatch = useDispatch();
@@ -73,9 +74,35 @@ const FormComp = () => {
   }, [queryParam]);
 
   const location = useLocation();
+  const pathname = location.pathname.split("/")[1];
+  // const codeResult = printCode(
+  //   pathname,
+  //   queryParam,
+  //   input,
+  //   parameter1,
+  //   parameter2,
+  //   parameter3,
+  //   parameter4
+  // );
+
+  useEffect(() => {
+    // Call the printCode function here with the updated parameters
+    const codeResult = printCode(
+      pathname,
+      queryParam,
+      input,
+      parameter1,
+      parameter2,
+      parameter3,
+      parameter4
+    );
+
+    // Dispatch the updated code result to the state
+    // (assuming you have a corresponding action and reducer for updating the code result)
+    // dispatch(updateCodeResult(updatedCodeResult));
+  }, [parameter2]);
 
   const inputRandomizerFunc = () => {
-    const pathname = location.pathname.split("/")[1];
     const randomNumber = Math.floor(Math.random() * 5);
     const randomNumber2 = Math.floor(Math.random() * 5);
     const randomNumber3 = Math.floor(Math.random() * 5);
@@ -84,12 +111,12 @@ const FormComp = () => {
         randomNumber
       ];
     const parameterValue =
-      stringParameter1Randomizer[
-        queryParam as keyof typeof stringParameter1Randomizer
+      stringParameterRandomizer[
+        queryParam as keyof typeof stringParameterRandomizer
       ][randomNumber2];
     const parameterValue2 =
-      stringParameter1Randomizer[
-        queryParam as keyof typeof stringParameter1Randomizer
+      stringParameterRandomizer[
+        queryParam as keyof typeof stringParameterRandomizer
       ][randomNumber3];
 
     if (pathname === "string") {
@@ -140,6 +167,49 @@ const FormComp = () => {
           dispatch(getInput(value));
           dispatch(getParameter1(parameterValue));
           dispatch(getParameter2(parameterValue2));
+          break;
+        case "replaceall":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          dispatch(getParameter2(parameterValue2));
+          break;
+        case "search":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "slice":
+          dispatch(getInput(value));
+          dispatch(getParameter1(randomNumber));
+          break;
+        case "split":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "startswith":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "substring":
+          dispatch(getInput(value));
+          dispatch(getParameter1(randomNumber));
+          break;
+        case "tolowercase":
+          dispatch(getInput(value));
+          break;
+        case "tostring":
+          dispatch(getInput(value));
+          break;
+        case "touppercase":
+          dispatch(getInput(value));
+          break;
+        case "trim":
+          dispatch(getInput(value));
+          break;
+        case "trimend":
+          dispatch(getInput(value));
+          break;
+        case "trimstart":
+          dispatch(getInput(value));
           break;
 
         default:
@@ -216,7 +286,19 @@ const FormComp = () => {
           />
         )}
       </div>
-
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Code
+        </label>
+        <textarea
+          disabled
+          id="codeResult"
+          name="codeResult"
+          value={codeResult}
+          rows={4}
+          className="w-full px-3 py-2 border rounded-md resize-none"
+        />
+      </div>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Output
@@ -230,13 +312,6 @@ const FormComp = () => {
           className="w-full px-3 py-2 border rounded-md bg-gray-100 resize-none"
         />
       </div>
-
-      {/* <button
-        type="submit"
-        className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
-      >
-        Submit
-      </button> */}
     </form>
   );
 };

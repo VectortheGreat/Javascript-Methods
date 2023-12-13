@@ -1,10 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch, useSelector } from "react-redux";
 import {
   getInput,
   getParameter1,
   getParameter2,
-  getParameter3,
-  getParameter4,
+  updateCodeResult,
 } from "../../redux/ValueSlice";
 import { useEffect } from "react";
 import { FaDice } from "react-icons/fa6";
@@ -14,6 +14,19 @@ import {
 } from "../../helpers/stringRandomizer";
 import { useLocation } from "react-router-dom";
 import { printCode } from "../../helpers/printCode";
+
+type HideInputs = {
+  hideParameter1: boolean;
+  hideParameter2: boolean;
+};
+type optionalParameters = {
+  optionalParameter1: boolean;
+  optionalParameter2: boolean;
+};
+type parameterDescriptions = {
+  parameterDescriptions1: string;
+  parameterDescriptions2: string;
+};
 
 const FormComp = () => {
   const dispatch = useDispatch();
@@ -32,26 +45,20 @@ const FormComp = () => {
   const parameter2 = useSelector(
     (state: { value: { parameter2: string } }) => state.value.parameter2
   );
-  const parameter3 = useSelector(
-    (state: { value: { parameter3: string } }) => state.value.parameter3
-  );
-  const parameter4 = useSelector(
-    (state: { value: { parameter4: string } }) => state.value.parameter4
-  );
+
   const queryParam = useSelector(
     (state: { value: { queryParam: string } }) => state.value.queryParam
   );
-  const hideInputs = useSelector(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (state: { value: any }) => state.value.hideInputs
+  const hideInputs: HideInputs = useSelector(
+    (state: { value: { hideInputs: HideInputs } }) => state.value.hideInputs
   );
-  const optionalParameters = useSelector(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (state: { value: any }) => state.value.optionalParameters
+  const optionalParameters: optionalParameters = useSelector(
+    (state: { value: { optionalParameters: optionalParameters } }) =>
+      state.value.optionalParameters
   );
-  const parameterDescriptions = useSelector(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (state: { value: any }) => state.value.parameterDescriptions
+  const parameterDescriptions: parameterDescriptions = useSelector(
+    (state: { value: { parameterDescriptions: parameterDescriptions } }) =>
+      state.value.parameterDescriptions
   );
   const placeholderValue1 = optionalParameters.optionalParameter1
     ? `Parameter 1 (Optional) - ${parameterDescriptions.parameterDescriptions1}`
@@ -59,50 +66,27 @@ const FormComp = () => {
   const placeholderValue2 = optionalParameters.optionalParameter2
     ? `Parameter 2 (Optional) - ${parameterDescriptions.parameterDescriptions2}`
     : `Parameter 2 (Required) - ${parameterDescriptions.parameterDescriptions2}`;
-  const placeholderValue3 = optionalParameters.optionalParameter3
-    ? `Parameter 3 (Optional) - ${parameterDescriptions.parameterDescriptions3}`
-    : `Parameter 3 (Required) - ${parameterDescriptions.parameterDescriptions3}`;
-  const placeholderValue4 = optionalParameters.optionalParameter4
-    ? `Parameter 4 (Optional) - ${parameterDescriptions.parameterDescriptions4}`
-    : `Parameter 4 (Required) - ${parameterDescriptions.parameterDescriptions4}`;
   useEffect(() => {
     dispatch(getInput(""));
     dispatch(getParameter1(""));
     dispatch(getParameter2(""));
-    dispatch(getParameter3(""));
-    dispatch(getParameter4(""));
   }, [queryParam]);
 
   const location = useLocation();
   const pathname = location.pathname.split("/")[1];
-  // const codeResult = printCode(
-  //   pathname,
-  //   queryParam,
-  //   input,
-  //   parameter1,
-  //   parameter2,
-  //   parameter3,
-  //   parameter4
-  // );
 
   useEffect(() => {
-    // Call the printCode function here with the updated parameters
-    const codeResult = printCode(
+    const printedCode = printCode(
       pathname,
       queryParam,
       input,
       parameter1,
-      parameter2,
-      parameter3,
-      parameter4
+      parameter2
     );
+    dispatch(updateCodeResult(printedCode ?? ""));
+  }, [pathname, queryParam, input, parameter1, parameter2]);
 
-    // Dispatch the updated code result to the state
-    // (assuming you have a corresponding action and reducer for updating the code result)
-    // dispatch(updateCodeResult(updatedCodeResult));
-  }, [parameter2]);
-
-  const inputRandomizerFunc = () => {
+  const randomizerFunc = () => {
     const randomNumber = Math.floor(Math.random() * 5);
     const randomNumber2 = Math.floor(Math.random() * 5);
     const randomNumber3 = Math.floor(Math.random() * 5);
@@ -238,7 +222,7 @@ const FormComp = () => {
           <FaDice
             className="absolute right-0 top-0 mt-2 mr-2 cursor-pointer"
             size={18}
-            onClick={inputRandomizerFunc}
+            onClick={randomizerFunc}
           />
         </div>
         {hideInputs.hideParameter1 ? null : (
@@ -263,28 +247,6 @@ const FormComp = () => {
             onChange={(e) => dispatch(getParameter2(e.target.value))}
           />
         )}
-        {hideInputs.hideParameter3 ? null : (
-          <input
-            type="text"
-            id="input"
-            name="input"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 resize-none"
-            placeholder={placeholderValue3}
-            value={parameter3}
-            onChange={(e) => dispatch(getParameter3(e.target.value))}
-          />
-        )}
-        {hideInputs.hideParameter4 ? null : (
-          <input
-            type="text"
-            id="input"
-            name="input"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 resize-none"
-            placeholder={placeholderValue4}
-            value={parameter4}
-            onChange={(e) => dispatch(getParameter4(e.target.value))}
-          />
-        )}
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -294,7 +256,9 @@ const FormComp = () => {
           disabled
           id="codeResult"
           name="codeResult"
-          value={codeResult}
+          value={useSelector(
+            (state: { value: { codeResult: string } }) => state.value.codeResult
+          )}
           rows={4}
           className="w-full px-3 py-2 border rounded-md resize-none"
         />

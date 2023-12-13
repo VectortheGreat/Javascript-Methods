@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
@@ -11,6 +12,7 @@ import {
   setParameterDescriptions,
   setQueryParam,
 } from "../../../redux/ValueSlice";
+import MainPage from "../MainPage";
 
 const StringMethods = () => {
   const methods: { [key: string]: string } = {
@@ -52,12 +54,6 @@ const StringMethods = () => {
   const parameter2 = useSelector(
     (state: { value: { parameter2: any } }) => state.value.parameter2
   );
-  const parameter3 = useSelector(
-    (state: { value: { parameter3: string } }) => state.value.parameter3
-  );
-  const parameter4 = useSelector(
-    (state: { value: { parameter4: string } }) => state.value.parameter4
-  );
   useEffect(() => {
     dispatch(setQueryParam(location.search.split("=")[1]));
   }, [dispatch, location.search]);
@@ -69,35 +65,25 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: true,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: false,
-            optionalParameter3: false,
-            optionalParameter4: false,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Index Number",
             parameterDescriptions2: "",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
       case "concat":
         dispatch(
           getOutput(
-            parameter4
-              ? input.concat(parameter1, parameter2, parameter3, parameter4)
-              : parameter3
-              ? input.concat(parameter1, parameter2, parameter3)
-              : parameter2
+            parameter2
               ? input.concat(parameter1, parameter2)
               : input.concat(parameter1)
           )
@@ -106,24 +92,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: false,
-            hideParameter4: false,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "String Value",
             parameterDescriptions2: "String Value",
-            parameterDescriptions3: "String Value",
-            parameterDescriptions4: "String Value",
           })
         );
         break;
@@ -139,24 +119,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Search String",
             parameterDescriptions2: "End Position Number",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -172,24 +146,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Search String",
             parameterDescriptions2: "Position Number",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -199,24 +167,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Search String",
             parameterDescriptions2: "Position Number",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -226,24 +188,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: false,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Search String",
             parameterDescriptions2: "Position Number",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -253,24 +209,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: false,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Max Length Number",
             parameterDescriptions2: "Fill String",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -280,24 +230,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: false,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Max Length Number",
             parameterDescriptions2: "Fill String",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -307,24 +251,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: true,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Count Number",
             parameterDescriptions2: "",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -334,24 +272,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: false,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "String to Change",
             parameterDescriptions2: "String to Replace",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -361,24 +293,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: false,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Strings to Change",
             parameterDescriptions2: "Strings to Replace",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -388,24 +314,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: true,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Search Value",
             parameterDescriptions2: "",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -421,24 +341,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Start Number",
             parameterDescriptions2: "End Number",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -454,24 +368,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Separator Value",
             parameterDescriptions2: "Limit Number",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -481,24 +389,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Search String",
             parameterDescriptions2: "Position Number",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -514,24 +416,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: false,
             hideParameter2: false,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "Start Number",
             parameterDescriptions2: "End Number",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -541,24 +437,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: true,
             hideParameter2: true,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: true,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "",
             parameterDescriptions2: "",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -568,24 +458,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: true,
             hideParameter2: true,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: true,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "",
             parameterDescriptions2: "",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -595,24 +479,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: true,
             hideParameter2: true,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: true,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "",
             parameterDescriptions2: "",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -622,24 +500,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: true,
             hideParameter2: true,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: true,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "",
             parameterDescriptions2: "",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -649,24 +521,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: true,
             hideParameter2: true,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: true,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "",
             parameterDescriptions2: "",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -676,24 +542,18 @@ const StringMethods = () => {
           setHideInputs({
             hideParameter1: true,
             hideParameter2: true,
-            hideParameter3: true,
-            hideParameter4: true,
           })
         );
         dispatch(
           setOptionalParameters({
             optionalParameter1: true,
             optionalParameter2: true,
-            optionalParameter3: true,
-            optionalParameter4: true,
           })
         );
         dispatch(
           setParameterDescriptions({
             parameterDescriptions1: "",
             parameterDescriptions2: "",
-            parameterDescriptions3: "",
-            parameterDescriptions4: "",
           })
         );
         break;
@@ -701,13 +561,13 @@ const StringMethods = () => {
         console.error("Error. Invalid Query Param");
         break;
     }
-  }, [queryParam, input, parameter1, parameter2, parameter3, parameter4]);
+  }, [queryParam, input, parameter1, parameter2]);
   return (
-    <div className="grid grid-cols-10">
-      <Methods methods={methods}></Methods>
-      <div className="col-span-8">
-        <FormComp></FormComp>
+    <div className="grid grid-cols-12">
+      <div className="col-span-10">
+        {queryParam ? <FormComp></FormComp> : <MainPage></MainPage>}
       </div>
+      <Methods methods={methods}></Methods>
     </div>
   );
 };

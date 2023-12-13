@@ -1,31 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  input: "",
-  parameter1: "",
-  parameter2: "",
-  parameter3: "",
-  parameter4: "",
-  output: "",
-  queryParam: "",
+  input: undefined,
+  parameter1: undefined,
+  parameter2: undefined,
+  output: undefined,
+  queryParam: undefined,
   hideInputs: {
     hideParameter1: true,
     hideParameter2: true,
-    hideParameter3: true,
-    hideParameter4: true,
   },
   optionalParameters: {
     optionalParameter1: false,
     optionalParameter2: false,
-    optionalParameter3: false,
-    optionalParameter4: false,
   },
   parameterDescriptions: {
-    parameterDescriptions1: "",
-    parameterDescriptions2: "",
-    parameterDescriptions3: "",
-    parameterDescriptions4: "",
+    parameterDescriptions1: undefined,
+    parameterDescriptions2: undefined,
   },
+  codeResult: undefined,
 };
 
 const ValueSlice = createSlice({
@@ -40,12 +33,6 @@ const ValueSlice = createSlice({
     },
     getParameter2: (state, action) => {
       state.parameter2 = action.payload;
-    },
-    getParameter3: (state, action) => {
-      state.parameter3 = action.payload;
-    },
-    getParameter4: (state, action) => {
-      state.parameter4 = action.payload;
     },
     getOutput: (state, action) => {
       state.output = action.payload;
@@ -68,6 +55,9 @@ const ValueSlice = createSlice({
         ...action.payload,
       };
     },
+    updateCodeResult: (state, action: PayloadAction<string>) => {
+      state.codeResult = action.payload;
+    },
   },
 });
 
@@ -76,12 +66,11 @@ export const {
   getOutput,
   getParameter1,
   getParameter2,
-  getParameter3,
-  getParameter4,
   setQueryParam,
   setHideInputs,
   setOptionalParameters,
   setParameterDescriptions,
+  updateCodeResult,
 } = ValueSlice.actions;
 
 export default ValueSlice.reducer;

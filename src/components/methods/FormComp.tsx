@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch, useSelector } from "react-redux";
+import CodeEditor from "@uiw/react-textarea-code-editor";
 import {
   getInput,
   getParameter1,
@@ -7,7 +8,6 @@ import {
   updateCodeResult,
 } from "../../redux/ValueSlice";
 import { useEffect } from "react";
-import { FaDice } from "react-icons/fa6";
 import {
   stringInputRandomizer,
   stringParameterRandomizer,
@@ -113,7 +113,7 @@ const FormComp = () => {
           dispatch(getInput(value));
           dispatch(getParameter1(parameterValue));
           break;
-        case "endswith":
+        case "endsWith":
           dispatch(getInput(value));
           dispatch(getParameter1(parameterValue));
           break;
@@ -121,22 +121,22 @@ const FormComp = () => {
           dispatch(getInput(value));
           dispatch(getParameter1(parameterValue));
           break;
-        case "indexof":
+        case "indexOf":
           dispatch(getInput(value));
           dispatch(getParameter1(parameterValue));
           break;
-        case "lastindexof":
+        case "lastIndexOf":
           dispatch(getInput(value));
           dispatch(getParameter1(parameterValue));
           break;
-        case "padend":
+        case "padEnd":
           dispatch(getInput(value));
           dispatch(
             getParameter1(Math.floor(Math.random() * (60 - 30 + 1) + 30))
           );
           dispatch(getParameter2(parameterValue));
           break;
-        case "padstart":
+        case "padStart":
           dispatch(getInput(value));
           dispatch(
             getParameter1(Math.floor(Math.random() * (60 - 30 + 1) + 30))
@@ -152,7 +152,7 @@ const FormComp = () => {
           dispatch(getParameter1(parameterValue));
           dispatch(getParameter2(parameterValue2));
           break;
-        case "replaceall":
+        case "replaceAll":
           dispatch(getInput(value));
           dispatch(getParameter1(parameterValue));
           dispatch(getParameter2(parameterValue2));
@@ -169,7 +169,7 @@ const FormComp = () => {
           dispatch(getInput(value));
           dispatch(getParameter1(parameterValue));
           break;
-        case "startswith":
+        case "startsWith":
           dispatch(getInput(value));
           dispatch(getParameter1(parameterValue));
           break;
@@ -177,22 +177,22 @@ const FormComp = () => {
           dispatch(getInput(value));
           dispatch(getParameter1(randomNumber));
           break;
-        case "tolowercase":
+        case "toLowerCase":
           dispatch(getInput(value));
           break;
-        case "tostring":
+        case "toString":
           dispatch(getInput(value));
           break;
-        case "touppercase":
+        case "toUpperCase":
           dispatch(getInput(value));
           break;
         case "trim":
           dispatch(getInput(value));
           break;
-        case "trimend":
+        case "trimEnd":
           dispatch(getInput(value));
           break;
-        case "trimstart":
+        case "trimStart":
           dispatch(getInput(value));
           break;
 
@@ -208,6 +208,9 @@ const FormComp = () => {
       onSubmit={testfunc}
       className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md"
     >
+      <div className="mb-4 px-1">
+        <h1 className="font-bold">{queryParam}()</h1>
+      </div>
       <div className="mb-4 space-y-4">
         <div className="relative">
           <textarea
@@ -218,11 +221,6 @@ const FormComp = () => {
             placeholder="Input"
             value={input}
             onChange={(e) => dispatch(getInput(e.target.value))}
-          />
-          <FaDice
-            className="absolute right-0 top-0 mt-2 mr-2 cursor-pointer"
-            size={18}
-            onClick={randomizerFunc}
           />
         </div>
         {hideInputs.hideParameter1 ? null : (
@@ -252,15 +250,15 @@ const FormComp = () => {
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Code
         </label>
-        <textarea
-          disabled
-          id="codeResult"
-          name="codeResult"
+        <CodeEditor
           value={useSelector(
             (state: { value: { codeResult: string } }) => state.value.codeResult
           )}
-          rows={4}
-          className="w-full px-3 py-2 border rounded-md resize-none"
+          language="js"
+          padding={15}
+          // className="bg-gray-200 text-black font-mono"
+          className="bg-slate-900 text-white font-mono w-full px-3 py-2 border rounded-md resize-none tracking-wider"
+          disabled
         />
       </div>
       <div className="mb-4">
@@ -273,8 +271,16 @@ const FormComp = () => {
           name="output"
           value={output}
           rows={4}
-          className="w-full px-3 py-2 border rounded-md bg-gray-100 resize-none"
+          className="w-full px-3 py-2 border rounded-md bg-gray-100"
         />
+      </div>
+      <div className="mb-4">
+        <button
+          className="bg-yellow-300 hover:bg-orange-400  text-black p-2 rounded-md mx-auto block"
+          onClick={randomizerFunc}
+        >
+          Randomize
+        </button>
       </div>
     </form>
   );

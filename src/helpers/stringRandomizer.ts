@@ -13,7 +13,7 @@ export const stringInputRandomizer = {
     "Ocean Waves Sing",
     "Timeless Love Grows",
   ],
-  endswith: [
+  endsWith: [
     "Hello Lazy World",
     "Hello Lazy World",
     "Hello Lazy World",
@@ -27,28 +27,28 @@ export const stringInputRandomizer = {
     "Ocean Waves Sing",
     "Timeless Love Grows",
   ],
-  indexof: [
+  indexOf: [
     "The quick brown fox jumps over the lazy dog.",
     "The quick brown fox jumps over the lazy dog.",
     "The quick brown fox jumps over the lazy dog.",
     "The quick brown fox jumps over the lazy dog.",
     "The quick brown fox jumps over the lazy dog.",
   ],
-  lastindexof: [
+  lastIndexOf: [
     "The quick brown fox jumps over the lazy dog.",
     "The quick brown fox jumps over the lazy dog.",
     "The quick brown fox jumps over the lazy dog.",
     "The quick brown fox jumps over the lazy dog.",
     "The quick brown fox jumps over the lazy dog.",
   ],
-  padend: [
+  padEnd: [
     "If-Case",
     "Stringest Word",
     "Not A Number",
     "hello.world(Console Log)",
     "Switch-Else",
   ],
-  padstart: [
+  padStart: [
     "If-Case",
     "Stringest Word",
     "Not A Number",
@@ -69,7 +69,7 @@ export const stringInputRandomizer = {
     "Rome was not built in a day. Rome was built over a period of more than 500 years.",
     "Rome was not built in a day. Rome was built over a period of more than 500 years.",
   ],
-  replaceall: [
+  replaceAll: [
     "Rome was not built in a day. Rome was built over a period of more than 500 years.",
     "Rome was not built in a day. Rome was built over a period of more than 500 years.",
     "Rome was not built in a day. Rome was built over a period of more than 500 years.",
@@ -97,7 +97,7 @@ export const stringInputRandomizer = {
     "Split / me / please",
     "Split / me / please",
   ],
-  startswith: [
+  startsWith: [
     "Hello Lazy World",
     "Hello Lazy World",
     "Hello Lazy World",
@@ -111,15 +111,15 @@ export const stringInputRandomizer = {
     "hello.world(Console Log) ",
     "Switch-Else ",
   ],
-  tolowercase: [
+  toLowerCase: [
     "HeLlO wOrLd",
     "BYE BYE WORLD",
     "TO lower CasE",
     "GG WP!",
     "xDxDxDxDxDxD",
   ],
-  tostring: ["1", "2", "3", "4", "5"],
-  touppercase: [
+  toString: ["1", "2", "3", "4", "5"],
+  toUpperCase: [
     "HeLlO wOrLd",
     "bye bye world",
     "tO lower CasE",
@@ -133,14 +133,14 @@ export const stringInputRandomizer = {
     "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    I'm a string LOL  !                                                                                                                                                                ",
     "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    I'm a string LOL  !                                                                                                                                                                ",
   ],
-  trimend: [
+  trimEnd: [
     "                                                                                                                                                                I'm a string LOL  !                                                                                                                                                                ",
     "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    I'm a string LOL  !                                                                                                                                                                ",
     "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    I'm a string LOL  !                                                                                                                                                                ",
     "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    I'm a string LOL  !                                                                                                                                                                ",
     "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    I'm a string LOL  !                                                                                                                                                                ",
   ],
-  trimstart: [
+  trimStart: [
     "                                                                                                                                                                I'm a string LOL  !                                                                                                                                                                ",
     "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    I'm a string LOL  !                                                                                                                                                                ",
     "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    I'm a string LOL  !                                                                                                                                                                ",
@@ -158,24 +158,24 @@ export const stringParameterRandomizer = {
     "Ocean Waves Sing",
     "Timeless Love Grows",
   ],
-  endswith: ["World", "Wor", "ld", "d", "Worl"],
+  endsWith: ["World", "Wor", "ld", "d", "Worl"],
   includes: ["Hello", "Days", "Among", "Ocean", "Grows"],
-  indexof: ["Thee", "quick", "fox", "over", "laziest"],
-  lastindexof: ["the", "quickly", "a", "he", "jum"],
-  padend: ["/", "#", ";", "xD", "<3"],
-  padstart: ["/", "#", ";", "xD", "<3"],
+  indexOf: ["Thee", "quick", "fox", "over", "laziest"],
+  lastIndexOf: ["the", "quickly", "a", "he", "jum"],
+  padEnd: ["/", "#", ";", "xD", "<3"],
+  padStart: ["/", "#", ";", "xD", "<3"],
   repeat: [],
   replace: ["Rome", "built", "period", "500", "more"],
-  replaceall: ["Rome", "built", "a", "500", "was"],
+  replaceAll: ["Rome", "built", "a", "500", "was"],
   search: ["was", "built", "period", "500", "more"],
   slice: [],
   split: ["Split", "me", "please", "/", "/"],
-  startswith: ["Hello", "H", "Hel", "Wor", "Lazy"],
+  startsWith: ["Hello", "H", "Hel", "Wor", "Lazy"],
   substring: [],
-  tolowercase: [],
-  tostring: [],
-  touppercase: [],
+  toLowerCase: [],
+  toString: [],
+  toUpperCase: [],
   trim: [],
-  trimend: [],
-  trimstart: [],
+  trimEnd: [],
+  trimStart: [],
 };

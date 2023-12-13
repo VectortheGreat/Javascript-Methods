@@ -18,26 +18,26 @@ const StringMethods = () => {
   const methods: { [key: string]: string } = {
     CharAt: "?method=charat",
     Concat: "?method=concat",
-    EndsWith: "?method=endswith",
+    EndsWith: "?method=endsWith",
     Includes: "?method=includes",
-    IndexOf: "?method=indexof",
-    LastIndexOf: "?method=lastindexof",
-    PadEnd: "?method=padend",
-    PadStart: "?method=padstart",
+    IndexOf: "?method=indexOf",
+    LastIndexOf: "?method=lastIndexOf",
+    PadEnd: "?method=padEnd",
+    PadStart: "?method=padStart",
     Repeat: "?method=repeat",
     Replace: "?method=replace",
-    ReplaceAll: "?method=replaceall",
+    ReplaceAll: "?method=replaceAll",
     Search: "?method=search",
     Slice: "?method=slice",
     Split: "?method=split",
-    StartsWith: "?method=startswith",
+    StartsWith: "?method=startsWith",
     Subtring: "?method=substring",
-    ToLowerCase: "?method=tolowercase",
-    ToString: "?method=tostring",
-    ToUpperCase: "?method=touppercase",
+    ToLowerCase: "?method=toLowerCase",
+    ToString: "?method=toString",
+    ToUpperCase: "?method=toUpperCase",
     Trim: "?method=trim",
-    TrimEnd: "?method=trimend",
-    TrimStart: "?method=trimstart",
+    TrimEnd: "?method=trimEnd",
+    TrimStart: "?method=trimStart",
   };
 
   const location = useLocation();
@@ -60,7 +60,7 @@ const StringMethods = () => {
   useEffect(() => {
     switch (queryParam) {
       case "charat":
-        dispatch(getOutput(input.charAt(parameter1)));
+        dispatch(getOutput(input && input.charAt(parameter1)));
         dispatch(
           setHideInputs({
             hideParameter1: false,
@@ -83,9 +83,9 @@ const StringMethods = () => {
       case "concat":
         dispatch(
           getOutput(
-            parameter2
+            input && parameter2
               ? input.concat(parameter1, parameter2)
-              : input.concat(parameter1)
+              : input && input.concat(parameter1)
           )
         );
         dispatch(
@@ -107,12 +107,12 @@ const StringMethods = () => {
           })
         );
         break;
-      case "endswith":
+      case "endsWith":
         dispatch(
           getOutput(
-            parameter2
+            input && parameter2
               ? input.endsWith(parameter1, parameter2)
-              : input.endsWith(parameter1)
+              : input && input.endsWith(parameter1)
           )
         );
         dispatch(
@@ -137,9 +137,9 @@ const StringMethods = () => {
       case "includes":
         dispatch(
           getOutput(
-            parameter2
+            input && parameter2
               ? input.includes(parameter1, parameter2)
-              : input.includes(parameter1)
+              : input && input.includes(parameter1)
           )
         );
         dispatch(
@@ -161,8 +161,14 @@ const StringMethods = () => {
           })
         );
         break;
-      case "indexof":
-        dispatch(getOutput(input.indexOf(parameter1, parameter2)));
+      case "indexOf":
+        dispatch(
+          getOutput(
+            input && parameter2
+              ? input.indexOf(parameter1, parameter2)
+              : input && input.indexOf(parameter1)
+          )
+        );
         dispatch(
           setHideInputs({
             hideParameter1: false,
@@ -182,8 +188,15 @@ const StringMethods = () => {
           })
         );
         break;
-      case "lastindexof":
-        dispatch(getOutput(input.lastIndexOf(parameter1)));
+      case "lastIndexOf":
+        dispatch(
+          getOutput(
+            input && parameter2
+              ? input.lastIndexOf(parameter1, parameter2)
+              : input && input.lastIndexOf(parameter1)
+          )
+        );
+
         dispatch(
           setHideInputs({
             hideParameter1: false,
@@ -193,7 +206,7 @@ const StringMethods = () => {
         dispatch(
           setOptionalParameters({
             optionalParameter1: false,
-            optionalParameter2: false,
+            optionalParameter2: true,
           })
         );
         dispatch(
@@ -203,8 +216,8 @@ const StringMethods = () => {
           })
         );
         break;
-      case "padend":
-        dispatch(getOutput(input.padEnd(parameter1, parameter2)));
+      case "padEnd":
+        dispatch(getOutput(input && input.padEnd(parameter1, parameter2)));
         dispatch(
           setHideInputs({
             hideParameter1: false,
@@ -224,8 +237,8 @@ const StringMethods = () => {
           })
         );
         break;
-      case "padstart":
-        dispatch(getOutput(input.padStart(parameter1, parameter2)));
+      case "padStart":
+        dispatch(getOutput(input && input.padStart(parameter1, parameter2)));
         dispatch(
           setHideInputs({
             hideParameter1: false,
@@ -246,7 +259,8 @@ const StringMethods = () => {
         );
         break;
       case "repeat":
-        dispatch(getOutput(input.repeat(parameter1)));
+        dispatch(getOutput(input && input.repeat(parameter1)));
+
         dispatch(
           setHideInputs({
             hideParameter1: false,
@@ -267,7 +281,7 @@ const StringMethods = () => {
         );
         break;
       case "replace":
-        dispatch(getOutput(input.replace(parameter1, parameter2)));
+        dispatch(getOutput(input && input.replace(parameter1, parameter2)));
         dispatch(
           setHideInputs({
             hideParameter1: false,
@@ -287,8 +301,8 @@ const StringMethods = () => {
           })
         );
         break;
-      case "replaceall":
-        dispatch(getOutput(input.replaceAll(parameter1, parameter2)));
+      case "replaceAll":
+        dispatch(getOutput(input && input.replaceAll(parameter1, parameter2)));
         dispatch(
           setHideInputs({
             hideParameter1: false,
@@ -309,7 +323,7 @@ const StringMethods = () => {
         );
         break;
       case "search":
-        dispatch(getOutput(input.search(parameter1)));
+        dispatch(getOutput(input && input.search(parameter1)));
         dispatch(
           setHideInputs({
             hideParameter1: false,
@@ -332,9 +346,10 @@ const StringMethods = () => {
       case "slice":
         dispatch(
           getOutput(
-            parameter2
-              ? input.slice(parameter1, parameter2)
-              : input.slice(parameter1)
+            input &&
+              (parameter2
+                ? input.slice(parameter1, parameter2)
+                : input.slice(parameter1))
           )
         );
         dispatch(
@@ -359,9 +374,10 @@ const StringMethods = () => {
       case "split":
         dispatch(
           getOutput(
-            parameter2
-              ? input.split(parameter1, parameter2)
-              : input.split(parameter1)
+            input &&
+              (parameter2
+                ? input.split(parameter1, parameter2)
+                : input.split(parameter1))
           )
         );
         dispatch(
@@ -383,8 +399,15 @@ const StringMethods = () => {
           })
         );
         break;
-      case "startswith":
-        dispatch(getOutput(input.startsWith(parameter1, parameter2)));
+      case "startsWith":
+        dispatch(
+          getOutput(
+            input &&
+              (parameter2
+                ? input.startsWith(parameter1, parameter2)
+                : input.startsWith(parameter1))
+          )
+        );
         dispatch(
           setHideInputs({
             hideParameter1: false,
@@ -407,9 +430,10 @@ const StringMethods = () => {
       case "substring":
         dispatch(
           getOutput(
-            parameter2
-              ? input.substring(parameter1, parameter2)
-              : input.substring(parameter1)
+            input &&
+              (parameter2
+                ? input.substring(parameter1, parameter2)
+                : input.substring(parameter1))
           )
         );
         dispatch(
@@ -431,8 +455,8 @@ const StringMethods = () => {
           })
         );
         break;
-      case "tolowercase":
-        dispatch(getOutput(input.toLowerCase()));
+      case "toLowerCase":
+        dispatch(getOutput(input && input.toLowerCase()));
         dispatch(
           setHideInputs({
             hideParameter1: true,
@@ -452,8 +476,8 @@ const StringMethods = () => {
           })
         );
         break;
-      case "tostring":
-        dispatch(getOutput(input.toString()));
+      case "toString":
+        dispatch(getOutput(input && input.toString()));
         dispatch(
           setHideInputs({
             hideParameter1: true,
@@ -473,8 +497,8 @@ const StringMethods = () => {
           })
         );
         break;
-      case "touppercase":
-        dispatch(getOutput(input.toUpperCase()));
+      case "toUpperCase":
+        dispatch(getOutput(input && input.toUpperCase()));
         dispatch(
           setHideInputs({
             hideParameter1: true,
@@ -495,7 +519,7 @@ const StringMethods = () => {
         );
         break;
       case "trim":
-        dispatch(getOutput(input.trim()));
+        dispatch(getOutput(input && input.trim()));
         dispatch(
           setHideInputs({
             hideParameter1: true,
@@ -515,8 +539,8 @@ const StringMethods = () => {
           })
         );
         break;
-      case "trimend":
-        dispatch(getOutput(input.trimEnd()));
+      case "trimEnd":
+        dispatch(getOutput(input && input.trimEnd()));
         dispatch(
           setHideInputs({
             hideParameter1: true,
@@ -536,8 +560,8 @@ const StringMethods = () => {
           })
         );
         break;
-      case "trimstart":
-        dispatch(getOutput(input.trimStart()));
+      case "trimStart":
+        dispatch(getOutput(input && input.trimStart()));
         dispatch(
           setHideInputs({
             hideParameter1: true,

@@ -23,15 +23,15 @@ export const printCode = (
         } else {
           return `const input = "${input}"; \nconsole.log(input.concat());`;
         }
-      case "endswith":
+      case "endsWith":
         if (!parameter2 && parameter1) {
-          return `const input = "${input}"; \nconsole.log(input.endswith("${parameter1}"));`;
+          return `const input = "${input}"; \nconsole.log(input.endsWith("${parameter1}"));`;
         } else if (!parameter1 && parameter2) {
-          return `const input = "${input}"; \nconsole.log(input.endswith(${parameter2}));`;
+          return `const input = "${input}"; \nconsole.log(input.endsWith(${parameter2}));`;
         } else if (parameter2 && parameter1) {
-          return `const input = "${input}"; \nconsole.log(input.endswith("${parameter1}",${parameter2}));`;
+          return `const input = "${input}"; \nconsole.log(input.endsWith("${parameter1}",${parameter2}));`;
         } else {
-          return `const input = "${input}"; \nconsole.log(input.endswith());`;
+          return `const input = "${input}"; \nconsole.log(input.endsWith());`;
         }
       case "includes":
         if (!parameter2 && parameter1) {
@@ -43,7 +43,7 @@ export const printCode = (
         } else {
           return `const input = "${input}"; \nconsole.log(input.includes());`;
         }
-      case "indexof":
+      case "indexOf":
         if (!parameter2 && parameter1) {
           return `const input = "${input}"; \nconsole.log(input.indexOf("${parameter1}"));`;
         } else if (!parameter1 && parameter2) {
@@ -53,7 +53,7 @@ export const printCode = (
         } else {
           return `const input = "${input}"; \nconsole.log(input.indexOf());`;
         }
-      case "lastindexof":
+      case "lastIndexOf":
         if (!parameter2 && parameter1) {
           return `const input = "${input}"; \nconsole.log(input.lastIndexOf("${parameter1}"));`;
         } else if (!parameter1 && parameter2) {
@@ -63,7 +63,7 @@ export const printCode = (
         } else {
           return `const input = "${input}"; \nconsole.log(input.lastIndexOf());`;
         }
-      case "padend":
+      case "padEnd":
         if (!parameter2 && parameter1) {
           return `const input = "${input}"; \nconsole.log(input.padEnd("${parameter1}"));`;
         } else if (!parameter1 && parameter2) {
@@ -73,7 +73,7 @@ export const printCode = (
         } else {
           return `const input = "${input}"; \nconsole.log(input.padEnd());`;
         }
-      case "padstart":
+      case "padStart":
         if (!parameter2 && parameter1) {
           return `const input = "${input}"; \nconsole.log(input.padStart("${parameter1}"));`;
         } else if (!parameter1 && parameter2) {
@@ -99,7 +99,7 @@ export const printCode = (
         } else {
           return `const input = "${input}"; \nconsole.log(input.replace());`;
         }
-      case "replaceall":
+      case "replaceAll":
         if (!parameter2 && parameter1) {
           return `const input = "${input}"; \nconsole.log(input.replaceAll("${parameter1}"));`;
         } else if (!parameter1 && parameter2) {
@@ -135,7 +135,7 @@ export const printCode = (
         } else {
           return `const input = "${input}"; \nconsole.log(input.split());`;
         }
-      case "startswith":
+      case "startsWith":
         if (!parameter2 && parameter1) {
           return `const input = "${input}"; \nconsole.log(input.startsWith("${parameter1}"));`;
         } else if (!parameter1 && parameter2) {
@@ -155,17 +155,17 @@ export const printCode = (
         } else {
           return `const input = "${input}"; \nconsole.log(input.substring());`;
         }
-      case "tolowercase":
+      case "toLowerCase":
         return `const input = "${input}"; \nconsole.log(input.toLowerCase());`;
-      case "tostring":
+      case "toString":
         return `const input = "${input}"; \nconsole.log(input.toString());`;
-      case "touppercase":
+      case "toUpperCase":
         return `const input = "${input}"; \nconsole.log(input.toUpperCase());`;
       case "trim":
         return `const input = "${input}"; \nconsole.log(input.trim());`;
-      case "trimend":
+      case "trimEnd":
         return `const input = "${input}"; \nconsole.log(input.trimEnd());`;
-      case "trimstart":
+      case "trimStart":
         return `const input = "${input}"; \nconsole.log(input.trimStart());`;
       default:
         return `Invalid Query Param`;

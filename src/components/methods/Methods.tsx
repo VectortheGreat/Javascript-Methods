@@ -3,10 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const Methods = ({ methods }: { methods: Record<string, string> }) => {
   const navigate = useNavigate();
-  const handleOnClick = (method: string) => {
-    navigate(`/string${methods[method]}`);
-  };
   const location = useLocation();
+  const handleOnClick = (method: string) => {
+    navigate(`${location.pathname}${methods[method]}`);
+  };
   const queryParam = location.search.split("=")[1];
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
   useEffect(() => {
@@ -28,6 +28,8 @@ const Methods = ({ methods }: { methods: Record<string, string> }) => {
           <li
             key={method}
             className={`cursor-pointer text-center rounded-md py-2 ${
+              method &&
+              queryParam &&
               method.toLowerCase() === queryParam.toLowerCase()
                 ? "bg-orange-400 text-black hover:bg-yellow-400 transition-all"
                 : "bg-yellow-400 text-black hover:bg-orange-400 transition-all"

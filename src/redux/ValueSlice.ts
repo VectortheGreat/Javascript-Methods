@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   input: undefined,
+  inputArray: undefined,
   parameter1: undefined,
   parameter2: undefined,
   output: undefined,
@@ -27,6 +29,12 @@ const ValueSlice = createSlice({
   reducers: {
     getInput: (state, action) => {
       state.input = action.payload;
+    },
+    getInputArray: (state, action) => {
+      state.inputArray = action.payload
+        .split(",")
+        .map((item: any) => item.trim());
+      console.log(state.inputArray);
     },
     getParameter1: (state, action) => {
       state.parameter1 = action.payload;
@@ -63,6 +71,7 @@ const ValueSlice = createSlice({
 
 export const {
   getInput,
+  getInputArray,
   getOutput,
   getParameter1,
   getParameter2,

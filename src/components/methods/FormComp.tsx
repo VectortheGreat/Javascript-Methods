@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import {
   getInput,
+  getInputArray,
   getParameter1,
   getParameter2,
   updateCodeResult,
@@ -38,6 +39,9 @@ const FormComp = () => {
   );
   const input = useSelector(
     (state: { value: { input: string } }) => state.value.input
+  );
+  const inputArray = useSelector(
+    (state: { value: { inputArray: string } }) => state.value.inputArray
   );
   const parameter1 = useSelector(
     (state: { value: { parameter1: string } }) => state.value.parameter1
@@ -203,6 +207,14 @@ const FormComp = () => {
     }
   };
 
+  const setInputFunc = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (pathname === "string") {
+      dispatch(getInput(e.target.value));
+    } else if (pathname === "array") {
+      dispatch(getInputArray(e.target.value));
+    }
+  };
+  console.log(inputArray);
   return (
     <form
       onSubmit={testfunc}
@@ -213,15 +225,27 @@ const FormComp = () => {
       </div>
       <div className="mb-4 space-y-4">
         <div className="relative">
-          <textarea
-            rows={2}
-            id="input"
-            name="input"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 resize-none"
-            placeholder="Input"
-            value={input}
-            onChange={(e) => dispatch(getInput(e.target.value))}
-          />
+          {pathname === "array" ? (
+            <textarea
+              rows={2}
+              id="inputArray"
+              name="inputArray"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 resize-none"
+              placeholder="input Array"
+              value={inputArray}
+              onChange={(e) => setInputFunc(e)}
+            />
+          ) : (
+            <textarea
+              rows={2}
+              id="input"
+              name="input"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 resize-none"
+              placeholder="Input"
+              value={input}
+              onChange={(e) => setInputFunc(e)}
+            />
+          )}
         </div>
         {hideInputs.hideParameter1 ? null : (
           <input

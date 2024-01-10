@@ -6,19 +6,23 @@ const initialState = {
   inputArray: undefined,
   parameter1: undefined,
   parameter2: undefined,
+  parameter3: undefined,
   output: undefined,
   queryParam: undefined,
   hideInputs: {
     hideParameter1: true,
     hideParameter2: true,
+    hideParameter3: true,
   },
   optionalParameters: {
     optionalParameter1: false,
     optionalParameter2: false,
+    optionalParameter3: false,
   },
   parameterDescriptions: {
     parameterDescriptions1: undefined,
     parameterDescriptions2: undefined,
+    parameterDescriptions3: undefined,
   },
   codeResult: undefined,
 };
@@ -31,10 +35,7 @@ const ValueSlice = createSlice({
       state.input = action.payload;
     },
     getInputArray: (state, action) => {
-      state.inputArray = action.payload
-        .split(",")
-        .map((item: any) => item.trim());
-      console.log(state.inputArray);
+      state.inputArray = action.payload.split(",").map((item: any) => item.trim());
     },
     getParameter1: (state, action) => {
       state.parameter1 = action.payload;
@@ -42,8 +43,12 @@ const ValueSlice = createSlice({
     getParameter2: (state, action) => {
       state.parameter2 = action.payload;
     },
+    getParameter3: (state, action) => {
+      state.parameter3 = action.payload;
+    },
     getOutput: (state, action) => {
       state.output = action.payload;
+      console.log(state.output);
     },
     setQueryParam: (state, action) => {
       state.queryParam = action.payload;
@@ -75,6 +80,7 @@ export const {
   getOutput,
   getParameter1,
   getParameter2,
+  getParameter3,
   setQueryParam,
   setHideInputs,
   setOptionalParameters,

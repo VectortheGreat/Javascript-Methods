@@ -4,9 +4,9 @@
 
 /* body {
   background-color: black;
-} */
-*{
-  font-family: 'Montserrat', sans-serif;
+}  */
+* {
+  font-family: "Montserrat", sans-serif;
 }
 
 /* For WebKit browsers (Chrome, Safari) */
@@ -14,7 +14,7 @@
   width: 10px;
 }
 .scrollbar-style::-webkit-scrollbar-thumb {
-background: #b4a975;
+  background: #b4a975;
   border-radius: 3px;
 }
 /* For Firefox */
@@ -22,5 +22,5 @@ background: #b4a975;
   scrollbar-color: #b4a975 #f1f1f1;
 }
 .scrollbar-style::-webkit-scrollbar-track {
-background: #f1f1f1;
+  background: #f1f1f1;
 }

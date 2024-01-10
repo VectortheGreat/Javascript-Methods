@@ -24,7 +24,6 @@ const ArrayMethods = () => {
     FindIndex: "?method=findIndex",
     FindLast: "?method=findLast",
     FindLastIndex: "?method=findLastIndex",
-    Flat: "?method=flat",
     ForEach: "?method=forEach",
     Includes: "?method=includes",
     IndexOf: "?method=indexOf",
@@ -45,44 +44,64 @@ const ArrayMethods = () => {
   };
   const location = useLocation();
   const dispatch = useDispatch();
-  const queryParam = useSelector(
-    (state: { value: { queryParam: string } }) => state.value.queryParam
-  );
-  const inputArray = useSelector(
-    (state: { value: { inputArray: any } }) => state.value.inputArray
-  );
-  const parameter1 = useSelector(
-    (state: { value: { parameter1: any } }) => state.value.parameter1
-  );
-  const parameter2 = useSelector(
-    (state: { value: { parameter2: any } }) => state.value.parameter2
-  );
+  const queryParam = useSelector((state: { value: { queryParam: string } }) => state.value.queryParam);
+  const inputArray = useSelector((state: { value: { inputArray: any } }) => state.value.inputArray);
+  const parameter1 = useSelector((state: { value: { parameter1: any } }) => state.value.parameter1);
+  const parameter2 = useSelector((state: { value: { parameter2: any } }) => state.value.parameter2);
+  const parameter3 = useSelector((state: { value: { parameter3: any } }) => state.value.parameter3);
+
+  const inputDispatchConfiguration = (
+    parameter1: any,
+    parameter1Desc: any,
+    parameter2: any,
+    parameter2Desc: any,
+    parameter3: any,
+    parameter3Desc: any
+  ) => {
+    dispatch(
+      setHideInputs({
+        hideParameter1: parameter1 === "Required" ? false : parameter1 === "Optional" ? false : true,
+        hideParameter2: parameter2 === "Required" ? false : parameter2 === "Optional" ? false : true,
+        hideParameter3: parameter3 === "Required" ? false : parameter3 === "Optional" ? false : true,
+      })
+    );
+    dispatch(
+      setOptionalParameters({
+        optionalParameter1: parameter1 === "Required" ? false : true,
+        optionalParameter2: parameter2 === "Required" ? false : true,
+        optionalParameter3: parameter3 === "Required" ? false : true,
+      })
+    );
+    dispatch(
+      setParameterDescriptions({
+        parameterDescriptions1: parameter1Desc,
+        parameterDescriptions2: parameter2Desc,
+        parameterDescriptions3: parameter3Desc,
+      })
+    );
+  };
+
   useEffect(() => {
     dispatch(setQueryParam(location.search.split("=")[1]));
   }, [dispatch, location.search]);
-  console.log(queryParam);
   useEffect(() => {
+    let isBelowThreshold: any;
+    let filterMethod: any;
+    let findMethod: any;
+    let findIndexMethod: any;
+    let findLastMethod: any;
+    let findLastIndexMethod: any;
+    // let mapMethod: any;
+    let popArray: any;
+    let pushArray: any;
+    let reverseArray: any;
+    let shiftArray: any;
+    let someMethod: any;
+    let sortArray: any;
     switch (queryParam) {
       case "at":
         dispatch(getOutput(inputArray && inputArray.at(parameter1)));
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: true,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: false,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Index Number",
-            parameterDescriptions2: "",
-          })
-        );
+        inputDispatchConfiguration("Required", "Index Number", undefined, undefined, undefined, undefined);
         break;
       case "concat":
         dispatch(
@@ -92,47 +111,67 @@ const ArrayMethods = () => {
               : inputArray && inputArray.concat(parameter1)
           )
         );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Arrays",
-            parameterDescriptions2: "Arrays",
-          })
-        );
+        inputDispatchConfiguration("Required", "Arrays", "Optional", "Arrays", undefined, undefined);
         break;
       case "every":
-        dispatch(getOutput(inputArray && inputArray.every(parameter1)));
+        isBelowThreshold = (currentValue: any) => currentValue < parseInt(parameter1);
+        dispatch(getOutput(inputArray && inputArray.every(isBelowThreshold)));
+        inputDispatchConfiguration("Required", "Condition Value", undefined, undefined, undefined, undefined);
+        break;
+      case "fill":
         dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
+          getOutput(
+            inputArray && parameter3
+              ? [...inputArray].fill(parameter1, parameter2, parameter3)
+              : inputArray && parameter2
+              ? [...inputArray].fill(parameter1, parameter2)
+              : inputArray && [...inputArray].fill(parameter1)
+          )
         );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Search String",
-            parameterDescriptions2: "End Position Number",
-          })
+        inputDispatchConfiguration(
+          "Required",
+          "Fill Number",
+          "Optional",
+          "Starting Position",
+          "Optional",
+          "Ending Position"
         );
         break;
+      case "filter":
+        filterMethod = (currentValue: any) => currentValue > parseInt(parameter1);
+        dispatch(getOutput(inputArray && inputArray.filter(filterMethod)));
+        inputDispatchConfiguration("Required", "Condition Value", undefined, undefined, undefined, undefined);
+        break;
+      case "find":
+        findMethod = (currentValue: any) => currentValue > parseInt(parameter1);
+        dispatch(getOutput(inputArray && inputArray.find(findMethod)));
+        inputDispatchConfiguration("Required", "Condition Value", undefined, undefined, undefined, undefined);
+        break;
+      case "findIndex":
+        findIndexMethod = (currentValue: any) => currentValue > parseInt(parameter1);
+        dispatch(getOutput(inputArray && inputArray.findIndex(findIndexMethod)));
+        inputDispatchConfiguration("Required", "Condition Value", undefined, undefined, undefined, undefined);
+        break;
+      case "findLast":
+        findLastMethod = (currentValue: any) => currentValue > parseInt(parameter1);
+        dispatch(getOutput(inputArray && inputArray.findLast(findLastMethod)));
+        inputDispatchConfiguration("Required", "Condition Value", undefined, undefined, undefined, undefined);
+        break;
+      case "findLastIndex":
+        findLastIndexMethod = (currentValue: any) => currentValue > parseInt(parameter1);
+        dispatch(getOutput(inputArray && inputArray.findLastIndex(findLastIndexMethod)));
+        inputDispatchConfiguration("Required", "Condition Value", undefined, undefined, undefined, undefined);
+        break;
+      case "forEach":
+        // console.log(inputArray?.forEach((element: any, index) => console.log(index)));
+        inputArray &&
+          inputArray.forEach((element: any) => {
+            dispatch(getOutput(element));
+          });
+        inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        break;
       case "includes":
+        // dispatch(getOutput(inputArray && inputArray.includes(parameter1)));
         dispatch(
           getOutput(
             inputArray && parameter2
@@ -140,461 +179,85 @@ const ArrayMethods = () => {
               : inputArray && inputArray.includes(parameter1)
           )
         );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Search String",
-            parameterDescriptions2: "Position Number",
-          })
-        );
-        break;
-      case "indexOf":
-        dispatch(
-          getOutput(
-            inputArray && parameter2
-              ? inputArray.indexOf(parameter1, parameter2)
-              : inputArray && inputArray.indexOf(parameter1)
-          )
-        );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Search String",
-            parameterDescriptions2: "Position Number",
-          })
-        );
+        inputDispatchConfiguration("Required", "Search Value", "Optional", "From Index", undefined, undefined);
         break;
       case "lastIndexOf":
         dispatch(
           getOutput(
-            inputArray && parameter2
-              ? inputArray.lastIndexOf(parameter1, parameter2)
-              : inputArray && inputArray.lastIndexOf(parameter1)
+            inputArray &&
+              (parameter2 ? inputArray.lastIndexOf(parameter1, parameter2) : inputArray.lastIndexOf(parameter1))
           )
         );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Search String",
-            parameterDescriptions2: "Position Number",
-          })
-        );
+        inputDispatchConfiguration("Required", "Search Value", "Optional", "From Index", undefined, undefined);
         break;
-      case "padEnd":
-        dispatch(
-          getOutput(inputArray && inputArray.padEnd(parameter1, parameter2))
-        );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: false,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Max Length Number",
-            parameterDescriptions2: "Fill String",
-          })
-        );
+      case "map":
+        // mapMethod = (currentValue: any) => 2 * parseInt(parameter1);
+        // console.log(mapMethod);
+        // dispatch(getOutput(inputArray && inputArray.map(mapMethod)));
+        // inputDispatchConfiguration("Required", "Value", undefined, undefined, undefined, undefined);
         break;
-      case "padStart":
-        dispatch(
-          getOutput(inputArray && inputArray.padStart(parameter1, parameter2))
-        );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: false,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Max Length Number",
-            parameterDescriptions2: "Fill String",
-          })
-        );
+      case "pop":
+        popArray = inputArray ? [...inputArray] : [];
+        dispatch(getOutput(popArray));
+        inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
         break;
-      case "repeat":
-        dispatch(getOutput(inputArray && inputArray.repeat(parameter1)));
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: true,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Count Number",
-            parameterDescriptions2: "",
-          })
-        );
+      case "push":
+        pushArray = inputArray ? [...inputArray] : [];
+        pushArray.push(parameter1);
+        dispatch(getOutput(pushArray));
+        inputDispatchConfiguration("Required", "Value", undefined, undefined, undefined, undefined);
         break;
-      case "replace":
-        dispatch(
-          getOutput(inputArray && inputArray.replace(parameter1, parameter2))
-        );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: false,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "String to Change",
-            parameterDescriptions2: "String to Replace",
-          })
-        );
+      case "reduce":
         break;
-      case "replaceAll":
-        dispatch(
-          getOutput(inputArray && inputArray.replaceAll(parameter1, parameter2))
-        );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: false,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Strings to Change",
-            parameterDescriptions2: "Strings to Replace",
-          })
-        );
+      case "reverse":
+        reverseArray = inputArray ? [...inputArray] : [];
+        dispatch(getOutput(reverseArray.reverse()));
+        inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
         break;
-      case "search":
-        dispatch(getOutput(inputArray && inputArray.search(parameter1)));
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: true,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Search Value",
-            parameterDescriptions2: "",
-          })
-        );
+      case "shift":
+        shiftArray = inputArray ? [...inputArray] : [];
+        shiftArray.shift();
+        dispatch(getOutput(shiftArray));
+        inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
         break;
       case "slice":
         dispatch(
           getOutput(
-            inputArray &&
-              (parameter2
-                ? inputArray.slice(parameter1, parameter2)
-                : inputArray.slice(parameter1))
+            inputArray && (parameter2 ? inputArray.slice(parameter1, parameter2) : inputArray.slice(parameter1))
           )
         );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Start Number",
-            parameterDescriptions2: "End Number",
-          })
-        );
+        inputDispatchConfiguration("Optional", "Starting Value", "Optional", "Ending Value", undefined, undefined);
         break;
-      case "split":
+      case "some":
+        someMethod = (currentValue: any) => currentValue < parseInt(parameter1);
+        dispatch(getOutput(inputArray && inputArray.some(someMethod)));
+        inputDispatchConfiguration("Required", "Condition Value", undefined, undefined, undefined, undefined);
+        break;
+      case "sort":
+        sortArray = inputArray ? [...inputArray] : [];
+        dispatch(getOutput(sortArray.sort()));
+        inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        break;
+      case "splice": // TODO yarım bırakıldı
         dispatch(
           getOutput(
-            inputArray &&
-              (parameter2
-                ? inputArray.split(parameter1, parameter2)
-                : inputArray.split(parameter1))
+            inputArray && parameter3
+              ? [...inputArray].splice(parameter1, parameter2, parameter3)
+              : inputArray && parameter2
+              ? [...inputArray].splice(parameter1, parameter2)
+              : inputArray && [...inputArray].splice(parameter1)
           )
         );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Separator Value",
-            parameterDescriptions2: "Limit Number",
-          })
-        );
-        break;
-      case "startsWith":
-        dispatch(
-          getOutput(
-            inputArray &&
-              (parameter2
-                ? inputArray.startsWith(parameter1, parameter2)
-                : inputArray.startsWith(parameter1))
-          )
-        );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Search String",
-            parameterDescriptions2: "Position Number",
-          })
-        );
-        break;
-      case "substring":
-        dispatch(
-          getOutput(
-            inputArray &&
-              (parameter2
-                ? inputArray.substring(parameter1, parameter2)
-                : inputArray.substring(parameter1))
-          )
-        );
-        dispatch(
-          setHideInputs({
-            hideParameter1: false,
-            hideParameter2: false,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: false,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "Start Number",
-            parameterDescriptions2: "End Number",
-          })
-        );
-        break;
-      case "toLowerCase":
-        dispatch(getOutput(inputArray && inputArray.toLowerCase()));
-        dispatch(
-          setHideInputs({
-            hideParameter1: true,
-            hideParameter2: true,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: true,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "",
-            parameterDescriptions2: "",
-          })
-        );
-        break;
-      case "toString":
-        dispatch(getOutput(inputArray && inputArray.toString()));
-        dispatch(
-          setHideInputs({
-            hideParameter1: true,
-            hideParameter2: true,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: true,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "",
-            parameterDescriptions2: "",
-          })
-        );
-        break;
-      case "toUpperCase":
-        dispatch(getOutput(inputArray && inputArray.toUpperCase()));
-        dispatch(
-          setHideInputs({
-            hideParameter1: true,
-            hideParameter2: true,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: true,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "",
-            parameterDescriptions2: "",
-          })
-        );
-        break;
-      case "trim":
-        dispatch(getOutput(inputArray && inputArray.trim()));
-        dispatch(
-          setHideInputs({
-            hideParameter1: true,
-            hideParameter2: true,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: true,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "",
-            parameterDescriptions2: "",
-          })
-        );
-        break;
-      case "trimEnd":
-        dispatch(getOutput(inputArray && inputArray.trimEnd()));
-        dispatch(
-          setHideInputs({
-            hideParameter1: true,
-            hideParameter2: true,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: true,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "",
-            parameterDescriptions2: "",
-          })
-        );
-        break;
-      case "trimStart":
-        dispatch(getOutput(inputArray && inputArray.trimStart()));
-        dispatch(
-          setHideInputs({
-            hideParameter1: true,
-            hideParameter2: true,
-          })
-        );
-        dispatch(
-          setOptionalParameters({
-            optionalParameter1: true,
-            optionalParameter2: true,
-          })
-        );
-        dispatch(
-          setParameterDescriptions({
-            parameterDescriptions1: "",
-            parameterDescriptions2: "",
-          })
-        );
+        inputDispatchConfiguration("Required", "Start", "Optional", "Delete Count", "Optional", "Item");
         break;
       default:
         console.error("Error. Invalid Query Param");
         break;
     }
-  }, [queryParam, inputArray, parameter1, parameter2]);
+  }, [queryParam, inputArray, parameter1, parameter2, parameter3]);
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-10">
-        {queryParam ? <FormComp></FormComp> : <MainPage></MainPage>}
-      </div>
+      <div className="col-span-10">{queryParam ? <FormComp></FormComp> : <MainPage></MainPage>}</div>
       <Methods methods={methods}></Methods>
     </div>
   );

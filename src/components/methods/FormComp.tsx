@@ -5,6 +5,7 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 import {
   getInput,
   getInputArray,
+  getOutput,
   getParameter1,
   getParameter2,
   getParameter3,
@@ -14,6 +15,7 @@ import { useEffect } from "react";
 import { stringInputRandomizer, stringParameterRandomizer } from "../../helpers/stringRandomizer";
 import { useLocation } from "react-router-dom";
 import { printCode } from "../../helpers/printCode";
+import { arrayInputRandomizer, arrayParameterRandomizer } from "../../helpers/arrayRandomizer";
 
 type HideInputs = {
   hideParameter1: boolean;
@@ -78,11 +80,26 @@ const FormComp = () => {
     const randomNumber = Math.floor(Math.random() * 5);
     const randomNumber2 = Math.floor(Math.random() * 5);
     const randomNumber3 = Math.floor(Math.random() * 5);
-    const value = stringInputRandomizer[queryParam as keyof typeof stringInputRandomizer][randomNumber];
+
+    const value =
+      pathname === "string"
+        ? stringInputRandomizer[queryParam as keyof typeof stringInputRandomizer][randomNumber]
+        : pathname === "array"
+        ? arrayInputRandomizer[queryParam as keyof typeof arrayInputRandomizer][randomNumber]
+        : null;
     const parameterValue =
-      stringParameterRandomizer[queryParam as keyof typeof stringParameterRandomizer][randomNumber2];
+      pathname === "string"
+        ? stringParameterRandomizer[queryParam as keyof typeof stringParameterRandomizer][randomNumber2]
+        : pathname === "array"
+        ? arrayParameterRandomizer[queryParam as keyof typeof arrayParameterRandomizer][randomNumber2]
+        : null;
     const parameterValue2 =
-      stringParameterRandomizer[queryParam as keyof typeof stringParameterRandomizer][randomNumber3];
+      pathname === "string"
+        ? stringParameterRandomizer[queryParam as keyof typeof stringParameterRandomizer][randomNumber3]
+        : pathname === "array"
+        ? arrayParameterRandomizer[queryParam as keyof typeof arrayParameterRandomizer][randomNumber3]
+        : null;
+    console.log(parameterValue);
 
     if (pathname === "string") {
       switch (queryParam) {
@@ -108,6 +125,120 @@ const FormComp = () => {
           break;
         case "lastIndexOf":
           dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "padEnd":
+          dispatch(getInput(value));
+          dispatch(getParameter1(Math.floor(Math.random() * (60 - 30 + 1) + 30)));
+          dispatch(getParameter2(parameterValue));
+          break;
+        case "padStart":
+          dispatch(getInput(value));
+          dispatch(getParameter1(Math.floor(Math.random() * (60 - 30 + 1) + 30)));
+          dispatch(getParameter2(parameterValue));
+          break;
+        case "repeat":
+          dispatch(getInput(value));
+          dispatch(getParameter1(Math.floor(Math.random() * (60 - 5 + 1) + 5)));
+          break;
+        case "replace":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          dispatch(getParameter2(parameterValue2));
+          break;
+        case "replaceAll":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          dispatch(getParameter2(parameterValue2));
+          break;
+        case "search":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "slice":
+          dispatch(getInput(value));
+          dispatch(getParameter1(randomNumber));
+          break;
+        case "split":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "startsWith":
+          dispatch(getInput(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "substring":
+          dispatch(getInput(value));
+          dispatch(getParameter1(randomNumber));
+          break;
+        case "toLowerCase":
+          dispatch(getInput(value));
+          break;
+        case "toString":
+          dispatch(getInput(value));
+          break;
+        case "toUpperCase":
+          dispatch(getInput(value));
+          break;
+        case "trim":
+          dispatch(getInput(value));
+          break;
+        case "trimEnd":
+          dispatch(getInput(value));
+          break;
+        case "trimStart":
+          dispatch(getInput(value));
+          break;
+
+        default:
+          console.error("Invalid queryParam");
+          break;
+      }
+    } else if (pathname === "array") {
+      switch (queryParam) {
+        case "at":
+          dispatch(getInputArray(value));
+          dispatch(getParameter1(randomNumber));
+          break;
+        case "concat":
+          dispatch(getInputArray(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "every":
+          dispatch(getInputArray(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "fill":
+          dispatch(getInputArray(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "filter":
+          dispatch(getOutput(""));
+          dispatch(getInputArray(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "find":
+          dispatch(getOutput(""));
+          dispatch(getInputArray(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "findIndex":
+          dispatch(getOutput(""));
+          dispatch(getInputArray(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "findLast":
+          dispatch(getOutput(""));
+          dispatch(getInputArray(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "findLastIndex":
+          dispatch(getOutput(""));
+          dispatch(getInputArray(value));
+          dispatch(getParameter1(parameterValue));
+          break;
+        case "includes":
+          dispatch(getInputArray(value));
           dispatch(getParameter1(parameterValue));
           break;
         case "padEnd":

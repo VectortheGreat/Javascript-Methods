@@ -38,8 +38,7 @@ const ArrayMethods = () => {
     Slice: "?method=slice",
     Some: "?method=some",
     Sort: "?method=sort",
-    splice: "?method=splice",
-    ToString: "?method=toString",
+    Splice: "?method=splice",
     Unshift: "?method=unshift",
   };
   const location = useLocation();
@@ -98,6 +97,8 @@ const ArrayMethods = () => {
     let shiftArray: any;
     let someMethod: any;
     let sortArray: any;
+    let spliceArray: any;
+    let unshiftArray: any;
     switch (queryParam) {
       case "at":
         dispatch(getOutput(inputArray && inputArray.at(parameter1)));
@@ -238,16 +239,24 @@ const ArrayMethods = () => {
         dispatch(getOutput(sortArray.sort()));
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
         break;
-      case "splice": // TODO yarım bırakıldı
-        dispatch(
-          getOutput(
-            inputArray && parameter3
-              ? [...inputArray].splice(parameter1, parameter2, parameter3)
-              : inputArray && parameter2
-              ? [...inputArray].splice(parameter1, parameter2)
-              : inputArray && [...inputArray].splice(parameter1)
-          )
-        );
+      case "splice":
+        spliceArray = inputArray ? [...inputArray] : [];
+        inputArray && parameter3
+          ? spliceArray.splice(parameter1, parameter2, parameter3)
+          : inputArray && parameter2
+          ? spliceArray.splice(parameter1, parameter2)
+          : spliceArray.splice(parameter1);
+        dispatch(getOutput(spliceArray));
+        inputDispatchConfiguration("Required", "Start", "Optional", "Delete Count", "Optional", "Item");
+        break;
+      case "unshift":
+        unshiftArray = inputArray ? [...inputArray] : [];
+        inputArray && parameter3
+          ? unshiftArray.unshift(parameter1, parameter2, parameter3)
+          : inputArray && parameter2
+          ? unshiftArray.unshift(parameter1, parameter2)
+          : unshiftArray.unshift(parameter1);
+        dispatch(getOutput(unshiftArray));
         inputDispatchConfiguration("Required", "Start", "Optional", "Delete Count", "Optional", "Item");
         break;
       default:

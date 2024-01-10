@@ -1,9 +1,9 @@
 export const printCode = (
   pathname: string,
   param: string,
-  input: string,
-  parameter1: string,
-  parameter2: string
+  input: string| number,
+  parameter1: string|number,
+  parameter2: string|number
 ) => {
   if (pathname === "string") {
     switch (param) {
@@ -170,7 +170,18 @@ export const printCode = (
       default:
         return `Invalid Query Param`;
     }
-  } else {
+  } else if (pathname === "array") {
+       switch (param) {
+      case "charat":
+        if (parameter1) {
+          return `const input = "${input}"; \nconsole.log(input.charAt(${parameter1}));`;
+        } else {
+          return `const input = "${input}"; \nconsole.log(input.charAt());`;
+        }
+        
+  }
+  
+  else {
     console.error("Invalid Pathname");
   }
 };

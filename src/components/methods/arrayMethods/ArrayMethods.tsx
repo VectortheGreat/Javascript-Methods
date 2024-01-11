@@ -84,7 +84,7 @@ const ArrayMethods = () => {
     dispatch(setQueryParam(location.search.split("=")[1]));
   }, [dispatch, location.search]);
   useEffect(() => {
-    let isBelowThreshold: any;
+    let everyMethod: any;
     let filterMethod: any;
     let findMethod: any;
     let findIndexMethod: any;
@@ -115,8 +115,8 @@ const ArrayMethods = () => {
         inputDispatchConfiguration("Required", "Arrays", "Optional", "Arrays", undefined, undefined);
         break;
       case "every":
-        isBelowThreshold = (currentValue: any) => currentValue < parseInt(parameter1);
-        dispatch(getOutput(inputArray && inputArray.every(isBelowThreshold)));
+        everyMethod = (currentValue: any) => currentValue < parseInt(parameter1);
+        dispatch(getOutput(inputArray && inputArray.every(everyMethod)));
         inputDispatchConfiguration("Required", "Condition Value", undefined, undefined, undefined, undefined);
         break;
       case "fill":
@@ -182,6 +182,18 @@ const ArrayMethods = () => {
         );
         inputDispatchConfiguration("Required", "Search Value", "Optional", "From Index", undefined, undefined);
         break;
+      case "indexOf":
+        dispatch(
+          getOutput(
+            inputArray && (parameter2 ? inputArray.indexOf(parameter1, parameter2) : inputArray.indexOf(parameter1))
+          )
+        );
+        inputDispatchConfiguration("Required", "Search Value", "Optional", "From Index", undefined, undefined);
+        break;
+      case "join":
+        dispatch(getOutput(inputArray?.join(parameter1)));
+        inputDispatchConfiguration("Required", "Search Value", undefined, undefined, undefined, undefined);
+        break;
       case "lastIndexOf":
         dispatch(
           getOutput(
@@ -199,6 +211,7 @@ const ArrayMethods = () => {
         break;
       case "pop":
         popArray = inputArray ? [...inputArray] : [];
+        popArray.pop();
         dispatch(getOutput(popArray));
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
         break;
@@ -230,8 +243,9 @@ const ArrayMethods = () => {
         inputDispatchConfiguration("Optional", "Starting Value", "Optional", "Ending Value", undefined, undefined);
         break;
       case "some":
-        someMethod = (currentValue: any) => currentValue < parseInt(parameter1);
+        someMethod = (currentValue: any) => currentValue === parameter1;
         dispatch(getOutput(inputArray && inputArray.some(someMethod)));
+        console.log(someMethod);
         inputDispatchConfiguration("Required", "Condition Value", undefined, undefined, undefined, undefined);
         break;
       case "sort":
@@ -251,13 +265,9 @@ const ArrayMethods = () => {
         break;
       case "unshift":
         unshiftArray = inputArray ? [...inputArray] : [];
-        inputArray && parameter3
-          ? unshiftArray.unshift(parameter1, parameter2, parameter3)
-          : inputArray && parameter2
-          ? unshiftArray.unshift(parameter1, parameter2)
-          : unshiftArray.unshift(parameter1);
+        unshiftArray.shift();
         dispatch(getOutput(unshiftArray));
-        inputDispatchConfiguration("Required", "Start", "Optional", "Delete Count", "Optional", "Item");
+        inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
         break;
       default:
         console.error("Error. Invalid Query Param");

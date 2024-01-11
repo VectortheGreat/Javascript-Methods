@@ -72,7 +72,13 @@ const FormComp = () => {
   const pathname = location.pathname.split("/")[1];
 
   useEffect(() => {
-    const printedCode = printCode(pathname, queryParam, input, parameter1, parameter2);
+    const printedCode = printCode(
+      pathname,
+      queryParam,
+      pathname === "string" ? input : inputArray,
+      parameter1,
+      parameter2
+    );
     dispatch(updateCodeResult(printedCode ?? ""));
   }, [pathname, queryParam, input, parameter1, parameter2]);
 
@@ -195,118 +201,14 @@ const FormComp = () => {
           break;
       }
     } else if (pathname === "array") {
-      switch (queryParam) {
-        case "at":
-          dispatch(getInputArray(value));
-          dispatch(getParameter1(randomNumber));
-          break;
-        case "concat":
-          dispatch(getInputArray(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "every":
-          dispatch(getInputArray(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "fill":
-          dispatch(getInputArray(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "filter":
-          dispatch(getOutput(""));
-          dispatch(getInputArray(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "find":
-          dispatch(getOutput(""));
-          dispatch(getInputArray(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "findIndex":
-          dispatch(getOutput(""));
-          dispatch(getInputArray(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "findLast":
-          dispatch(getOutput(""));
-          dispatch(getInputArray(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "findLastIndex":
-          dispatch(getOutput(""));
-          dispatch(getInputArray(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "includes":
-          dispatch(getInputArray(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "padEnd":
-          dispatch(getInput(value));
-          dispatch(getParameter1(Math.floor(Math.random() * (60 - 30 + 1) + 30)));
-          dispatch(getParameter2(parameterValue));
-          break;
-        case "padStart":
-          dispatch(getInput(value));
-          dispatch(getParameter1(Math.floor(Math.random() * (60 - 30 + 1) + 30)));
-          dispatch(getParameter2(parameterValue));
-          break;
-        case "repeat":
-          dispatch(getInput(value));
-          dispatch(getParameter1(Math.floor(Math.random() * (60 - 5 + 1) + 5)));
-          break;
-        case "replace":
-          dispatch(getInput(value));
-          dispatch(getParameter1(parameterValue));
-          dispatch(getParameter2(parameterValue2));
-          break;
-        case "replaceAll":
-          dispatch(getInput(value));
-          dispatch(getParameter1(parameterValue));
-          dispatch(getParameter2(parameterValue2));
-          break;
-        case "search":
-          dispatch(getInput(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "slice":
-          dispatch(getInput(value));
-          dispatch(getParameter1(randomNumber));
-          break;
-        case "split":
-          dispatch(getInput(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "startsWith":
-          dispatch(getInput(value));
-          dispatch(getParameter1(parameterValue));
-          break;
-        case "substring":
-          dispatch(getInput(value));
-          dispatch(getParameter1(randomNumber));
-          break;
-        case "toLowerCase":
-          dispatch(getInput(value));
-          break;
-        case "toString":
-          dispatch(getInput(value));
-          break;
-        case "toUpperCase":
-          dispatch(getInput(value));
-          break;
-        case "trim":
-          dispatch(getInput(value));
-          break;
-        case "trimEnd":
-          dispatch(getInput(value));
-          break;
-        case "trimStart":
-          dispatch(getInput(value));
-          break;
-
-        default:
-          console.error("Invalid queryParam");
-          break;
+      // prettier-ignore
+      const validQueryParams = [ "at", "concat", "every", "fill", "filter", "find", "findIndex", "findLast", "findLastIndex", "includes", "indexOf", "join", "lastIndexOf", "pop", "push", "reverse", "shift", "slice","some", "sort", "splice", "unshift" ];
+      if (validQueryParams.includes(queryParam)) {
+        dispatch(getOutput(""));
+        dispatch(getInputArray(value));
+        dispatch(getParameter1(parameterValue));
+      } else {
+        console.error("Invalid queryParam");
       }
     }
   };

@@ -1,9 +1,9 @@
 export const printCode = (
   pathname: string,
   param: string,
-  input: string| number,
-  parameter1: string|number,
-  parameter2: string|number
+  input: string | number,
+  parameter1: string | number,
+  parameter2: string | number
 ) => {
   if (pathname === "string") {
     switch (param) {
@@ -171,17 +171,35 @@ export const printCode = (
         return `Invalid Query Param`;
     }
   } else if (pathname === "array") {
-       switch (param) {
-      case "charat":
+    switch (param) {
+      case "at":
         if (parameter1) {
           return `const input = "${input}"; \nconsole.log(input.charAt(${parameter1}));`;
         } else {
           return `const input = "${input}"; \nconsole.log(input.charAt());`;
         }
-        
-  }
-  
-  else {
+      case "concat":
+        if (!parameter2 && parameter1) {
+          return `const input = "${input}"; \nconsole.log(input.concat("${parameter1}"));`;
+        } else if (!parameter1 && parameter2) {
+          return `const input = "${input}"; \nconsole.log(input.concat("${parameter2}"));`;
+        } else if (parameter2 && parameter1) {
+          return `const input = "${input}"; \nconsole.log(input.concat("${parameter1}","${parameter2}"));`;
+        } else {
+          return `const input = "${input}"; \nconsole.log(input.concat());`;
+        }
+      case "every":
+        if (!parameter2 && parameter1) {
+          return `const input = "${input}"; \nconsole.log(input.concat("${parameter1}"));`;
+        } else if (!parameter1 && parameter2) {
+          return `const input = "${input}"; \nconsole.log(input.concat("${parameter2}"));`;
+        } else if (parameter2 && parameter1) {
+          return `const input = "${input}"; \nconsole.log(input.concat("${parameter1}","${parameter2}"));`;
+        } else {
+          return `const input = "${input}"; \nconsole.log(input.concat());`;
+        }
+    }
+  } else {
     console.error("Invalid Pathname");
   }
 };

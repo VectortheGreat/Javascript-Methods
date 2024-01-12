@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 const Navbar = () => {
   const pages: { [key: string]: string } = {
     String: "/string",
-    Integer: "/integer",
+    Number: "/number",
     Array: "/array",
     Date: "/date",
     Json: "/json",
@@ -19,17 +19,11 @@ const Navbar = () => {
           <ul className="flex space-x-5">
             {Object.keys(pages).map((page) =>
               pathname === pages[page] ? (
-                <li
-                  key={page}
-                  className="text-lg border-b-2 border-black font-bold p-1"
-                >
+                <li key={page} className="text-lg border-b-2 border-black font-bold p-1">
                   <Link to={pages[page]}>{page}</Link>
                 </li>
               ) : (
-                <li
-                  key={page}
-                  className="text-lg p-1 hover:bg-yellow-400 hover:rounded-md"
-                >
+                <li key={page} className="text-lg p-1 hover:bg-yellow-400 hover:rounded-md">
                   <Link to={pages[page]}>{page}</Link>
                 </li>
               )

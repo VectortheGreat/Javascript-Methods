@@ -16,6 +16,7 @@ import { stringInputRandomizer, stringParameterRandomizer } from "../../helpers/
 import { useLocation } from "react-router-dom";
 import { printCode } from "../../helpers/printCode";
 import { arrayInputRandomizer, arrayParameterRandomizer } from "../../helpers/arrayRandomizer";
+import { numberInputRandomizer, numberParameterRandomizer } from "../../helpers/numberRandomizer";
 
 type HideInputs = {
   hideParameter1: boolean;
@@ -66,6 +67,7 @@ const FormComp = () => {
     dispatch(getInput(""));
     dispatch(getParameter1(""));
     dispatch(getParameter2(""));
+    dispatch(getParameter3(""));
   }, [queryParam]);
 
   const location = useLocation();
@@ -75,7 +77,7 @@ const FormComp = () => {
     const printedCode = printCode(
       pathname,
       queryParam,
-      pathname === "string" ? input : inputArray,
+      pathname === "array" ? inputArray : input,
       parameter1,
       parameter2,
       parameter3
@@ -93,12 +95,16 @@ const FormComp = () => {
         ? stringInputRandomizer[queryParam as keyof typeof stringInputRandomizer][randomNumber]
         : pathname === "array"
         ? arrayInputRandomizer[queryParam as keyof typeof arrayInputRandomizer][randomNumber]
+        : pathname === "number"
+        ? numberInputRandomizer[queryParam as keyof typeof numberInputRandomizer][randomNumber]
         : null;
     const parameterValue =
       pathname === "string"
         ? stringParameterRandomizer[queryParam as keyof typeof stringParameterRandomizer][randomNumber2]
         : pathname === "array"
         ? arrayParameterRandomizer[queryParam as keyof typeof arrayParameterRandomizer][randomNumber2]
+        : pathname === "number"
+        ? numberParameterRandomizer[queryParam as keyof typeof numberParameterRandomizer][randomNumber2]
         : null;
     const parameterValue2 =
       pathname === "string"
@@ -106,8 +112,6 @@ const FormComp = () => {
         : pathname === "array"
         ? arrayParameterRandomizer[queryParam as keyof typeof arrayParameterRandomizer][randomNumber3]
         : null;
-    console.log(parameterValue);
-
     if (pathname === "string") {
       switch (queryParam) {
         case "charat":
@@ -203,36 +207,19 @@ const FormComp = () => {
       }
     } else if (pathname === "array") {
       // prettier-ignore
-      const validQueryParams = [
-        "at",
-        "concat",
-        "every",
-        "fill",
-        "filter",
-        "find",
-        "findIndex",
-        "findLast",
-        "findLastIndex",
-        "forEach",
-        "includes",
-        "indexOf",
-        "join",
-        "lastIndexOf",
-        "map",
-        "pop",
-        "push",
-        "reduce",
-        "reverse",
-        "shift",
-        "slice",
-        "some",
-        "sort",
-        "splice",
-        "unshift",
-      ];
+      const validQueryParams = [ "at", "concat", "every", "fill", "filter", "find", "findIndex", "findLast", "findLastIndex", "forEach", "includes", "indexOf", "join", "lastIndexOf", "map", "pop", "push", "reduce", "reverse", "shift", "slice", "some", "sort", "splice", "unshift", ];
       if (validQueryParams.includes(queryParam)) {
         dispatch(getOutput(""));
         dispatch(getInputArray(value));
+        dispatch(getParameter1(parameterValue));
+      } else {
+        console.error("Invalid queryParam");
+      }
+    } else if (pathname === "number") {
+      const validQueryParams = ["isInteger", "parseFloat", "parseInt", "toFixed", "toPrecision", "toString"];
+      if (validQueryParams.includes(queryParam)) {
+        dispatch(getOutput(""));
+        dispatch(getInput(value));
         dispatch(getParameter1(parameterValue));
       } else {
         console.error("Invalid queryParam");
@@ -241,10 +228,10 @@ const FormComp = () => {
   };
 
   const setInputFunc = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (pathname === "string") {
-      dispatch(getInput(e.target.value));
-    } else if (pathname === "array") {
+    if (pathname === "array") {
       dispatch(getInputArray(e.target.value));
+    } else {
+      dispatch(getInput(e.target.value));
     }
   };
   return (

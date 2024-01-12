@@ -352,6 +352,29 @@ export const printCode = (
       case "unshift":
         return `const input = [${input}]; \nconsole.log(input.unshift());`;
     }
+  } else if (pathname === "number") {
+    switch (param) {
+      case "isInteger":
+        return `const input = ${input}; \nconsole.log(input.isInteger());`;
+      case "parseFloat":
+        return `const input = "${input}"; \nconsole.log(parseFloat(input));`;
+      case "parseInt":
+        return `const input = "${input}"; \nconsole.log(parseInt(input));`;
+      case "toFixed":
+        if (parameter1) {
+          return `const input = ${input}; \nconsole.log(input.toFixed(${parameter1}));`;
+        } else {
+          return `const input = ${input}; \nconsole.log(input.toFixed());`;
+        }
+      case "toPrecision":
+        if (parameter1) {
+          return `const input = ${input}; \nconsole.log(input.toPrecision(${parameter1}));`;
+        } else {
+          return `const input = ${input}; \nconsole.log(input.toPrecision());`;
+        }
+      case "toString":
+        return `const input = ${input}; \nconsole.log(input.toString());`;
+    }
   } else {
     console.error("Invalid Pathname");
   }

@@ -90,7 +90,8 @@ const ArrayMethods = () => {
     let findIndexMethod: any;
     let findLastMethod: any;
     let findLastIndexMethod: any;
-    // let mapMethod: any;
+    const forEachMethod: any = [];
+    let mapMethod: any;
     let popArray: any;
     let pushArray: any;
     let reverseArray: any;
@@ -99,6 +100,8 @@ const ArrayMethods = () => {
     let sortArray: any;
     let spliceArray: any;
     let unshiftArray: any;
+    let reduceMethod: any;
+    let initialValue: any;
     switch (queryParam) {
       case "at":
         dispatch(getOutput(inputArray && inputArray.at(parameter1)));
@@ -164,15 +167,13 @@ const ArrayMethods = () => {
         inputDispatchConfiguration("Required", "Condition Value", undefined, undefined, undefined, undefined);
         break;
       case "forEach":
-        // console.log(inputArray?.forEach((element: any, index) => console.log(index)));
-        inputArray &&
-          inputArray.forEach((element: any) => {
-            dispatch(getOutput(element));
-          });
-        inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        inputArray?.forEach((element: number) => {
+          forEachMethod.push(element * parameter1);
+        });
+        dispatch(getOutput(forEachMethod));
+        inputDispatchConfiguration("Required", "Condition Value", undefined, undefined, undefined, undefined);
         break;
       case "includes":
-        // dispatch(getOutput(inputArray && inputArray.includes(parameter1)));
         dispatch(
           getOutput(
             inputArray && parameter2
@@ -204,10 +205,9 @@ const ArrayMethods = () => {
         inputDispatchConfiguration("Required", "Search Value", "Optional", "From Index", undefined, undefined);
         break;
       case "map":
-        // mapMethod = (currentValue: any) => 2 * parseInt(parameter1);
-        // console.log(mapMethod);
-        // dispatch(getOutput(inputArray && inputArray.map(mapMethod)));
-        // inputDispatchConfiguration("Required", "Value", undefined, undefined, undefined, undefined);
+        mapMethod = (currentValue: any) => currentValue * parseInt(parameter1);
+        dispatch(getOutput(inputArray && inputArray.map(mapMethod)));
+        inputDispatchConfiguration("Required", "Value", undefined, undefined, undefined, undefined);
         break;
       case "pop":
         popArray = inputArray ? [...inputArray] : [];
@@ -222,6 +222,10 @@ const ArrayMethods = () => {
         inputDispatchConfiguration("Required", "Value", undefined, undefined, undefined, undefined);
         break;
       case "reduce":
+        reduceMethod = (accumulator: number, currentValue: string) => accumulator + parseInt(currentValue, 10);
+        initialValue = parseInt(parameter1);
+        dispatch(getOutput(inputArray && inputArray.reduce(reduceMethod, initialValue)));
+        inputDispatchConfiguration("Required", "Initial Value", undefined, undefined, undefined, undefined);
         break;
       case "reverse":
         reverseArray = inputArray ? [...inputArray] : [];

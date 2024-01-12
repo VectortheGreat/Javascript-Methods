@@ -77,10 +77,11 @@ const FormComp = () => {
       queryParam,
       pathname === "string" ? input : inputArray,
       parameter1,
-      parameter2
+      parameter2,
+      parameter3
     );
     dispatch(updateCodeResult(printedCode ?? ""));
-  }, [pathname, queryParam, input, parameter1, parameter2]);
+  }, [pathname, queryParam, input, parameter1, parameter2, parameter3, inputArray]);
 
   const randomizerFunc = () => {
     const randomNumber = Math.floor(Math.random() * 5);
@@ -202,7 +203,33 @@ const FormComp = () => {
       }
     } else if (pathname === "array") {
       // prettier-ignore
-      const validQueryParams = [ "at", "concat", "every", "fill", "filter", "find", "findIndex", "findLast", "findLastIndex", "includes", "indexOf", "join", "lastIndexOf", "pop", "push", "reverse", "shift", "slice","some", "sort", "splice", "unshift" ];
+      const validQueryParams = [
+        "at",
+        "concat",
+        "every",
+        "fill",
+        "filter",
+        "find",
+        "findIndex",
+        "findLast",
+        "findLastIndex",
+        "forEach",
+        "includes",
+        "indexOf",
+        "join",
+        "lastIndexOf",
+        "map",
+        "pop",
+        "push",
+        "reduce",
+        "reverse",
+        "shift",
+        "slice",
+        "some",
+        "sort",
+        "splice",
+        "unshift",
+      ];
       if (validQueryParams.includes(queryParam)) {
         dispatch(getOutput(""));
         dispatch(getInputArray(value));
@@ -221,7 +248,7 @@ const FormComp = () => {
     }
   };
   return (
-    <form onSubmit={testfunc} className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
+    <form onSubmit={testfunc} className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-md">
       <div className="mb-4 px-1">
         <h1 className="font-bold">{queryParam}()</h1>
       </div>

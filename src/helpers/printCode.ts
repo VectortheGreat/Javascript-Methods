@@ -436,6 +436,31 @@ export const printCode = (
       case "toTimeString":
         return `const date = new Date("${input}"); \nconsole.log(date.toTimeString());`;
     }
+  } else if (pathname === "math") {
+    switch (param) {
+      case "abs":
+        return `console.log(Math.abs(${input}));`;
+      case "cbrt":
+        return `console.log(Math.cbrt(${input}));`;
+      case "ceil":
+        return `console.log(Math.ceil(${input}));`;
+      case "floor":
+        return `console.log(Math.floor(${input}));`;
+      case "max":
+        return `console.log(Math.max(${input},${parameter2}));`;
+      case "min":
+        return `console.log(Math.min(${input},${parameter2}));`;
+      case "pow":
+        return `console.log(Math.pow(${input},${parameter2}));`;
+      case "random":
+        if (input) {
+          return `console.log(Math.random() * ${input});`;
+        } else {
+          return `console.log(Math.random());`;
+        }
+      case "round":
+        return `console.log(Math.round(${input}));`;
+    }
   } else {
     console.error("Invalid Pathname");
   }

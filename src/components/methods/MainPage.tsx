@@ -3,6 +3,7 @@ import StringDetail from "./stringMethods/StringDetail";
 import ArrayDetail from "./arrayMethods/ArrayDetail";
 import NumberDetail from "./number-methods/NumberDetail";
 import DateDetail from "./date-methods/DateDetail";
+import MathDetail from "./math-methods/MathDetail";
 
 const MainPage = () => {
   const location = useLocation();
@@ -17,6 +18,8 @@ const MainPage = () => {
         <NumberDetail />
       ) : pathname === "date" ? (
         <DateDetail />
+      ) : pathname === "math" ? (
+        <MathDetail />
       ) : (
         <h1>Not Found</h1>
       )}

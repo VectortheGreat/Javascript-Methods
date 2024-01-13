@@ -7,7 +7,6 @@ import Number from "./pages/Number";
 import Array from "./pages/Array";
 import Date from "./pages/Date";
 import Math from "./pages/Math";
-import Json from "./pages/Json";
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
           <Route path="/array" element={<Array />} />
           <Route path="/date" element={<Date />} />
           <Route path="/math" element={<Math />} />
-          <Route path="/json" element={<Json />} />
         </Routes>
       </PageContainer>
     </Router>

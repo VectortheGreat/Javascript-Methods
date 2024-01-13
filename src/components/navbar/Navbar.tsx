@@ -6,7 +6,6 @@ const Navbar = () => {
     Number: "/number",
     Array: "/array",
     Date: "/date",
-    Json: "/json",
     Math: "/math",
   };
   const location = useLocation();

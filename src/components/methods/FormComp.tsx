@@ -11,13 +11,14 @@ import {
   getParameter3,
   updateCodeResult,
 } from "../../redux/ValueSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { stringInputRandomizer, stringParameterRandomizer } from "../../helpers/stringRandomizer";
 import { useLocation } from "react-router-dom";
 import { printCode } from "../../helpers/printCode";
 import { arrayInputRandomizer, arrayParameterRandomizer } from "../../helpers/arrayRandomizer";
 import { numberInputRandomizer, numberParameterRandomizer } from "../../helpers/numberRandomizer";
 import { dateInputRandomizer, dateParameterRandomizer } from "../../helpers/dateRandomizer";
+import { mathInputRandomizer, mathParameterRandomizer } from "../../helpers/mathRandomizer";
 
 type HideInputs = {
   hideParameter1: boolean;
@@ -64,11 +65,21 @@ const FormComp = () => {
   const placeholderValue3 = optionalParameters.optionalParameter3
     ? `Parameter 3 (Optional) - ${parameterDescriptions.parameterDescriptions3}`
     : `Parameter 3 (Required) - ${parameterDescriptions.parameterDescriptions3}`;
+  const [placeholderText, setPlaceholderText] = useState("Input");
   useEffect(() => {
     dispatch(getInput(""));
     dispatch(getParameter1(""));
     dispatch(getParameter2(""));
     dispatch(getParameter3(""));
+    if (pathname === "math") {
+      if (queryParam === "random") {
+        setPlaceholderText("Parameter 1 (Optional) - Max Value");
+      } else {
+        setPlaceholderText("Parameter 1 (Required) - Value");
+      }
+    } else {
+      setPlaceholderText("Input");
+    }
   }, [queryParam]);
 
   const location = useLocation();
@@ -90,7 +101,6 @@ const FormComp = () => {
     const randomNumber = Math.floor(Math.random() * 5);
     const randomNumber2 = Math.floor(Math.random() * 5);
     const randomNumber3 = Math.floor(Math.random() * 5);
-
     const value =
       pathname === "string"
         ? stringInputRandomizer[queryParam as keyof typeof stringInputRandomizer][randomNumber]
@@ -100,6 +110,8 @@ const FormComp = () => {
         ? numberInputRandomizer[queryParam as keyof typeof numberInputRandomizer][randomNumber]
         : pathname === "date"
         ? dateInputRandomizer[queryParam as keyof typeof dateInputRandomizer][randomNumber]
+        : pathname === "math"
+        ? mathInputRandomizer[queryParam as keyof typeof mathInputRandomizer][randomNumber]
         : null;
     const parameterValue =
       pathname === "string"
@@ -110,6 +122,8 @@ const FormComp = () => {
         ? numberParameterRandomizer[queryParam as keyof typeof numberParameterRandomizer][randomNumber2]
         : pathname === "date"
         ? dateParameterRandomizer[queryParam as keyof typeof dateParameterRandomizer][randomNumber2]
+        : pathname === "math"
+        ? mathParameterRandomizer[queryParam as keyof typeof mathParameterRandomizer][randomNumber2]
         : null;
     const parameterValue2 =
       pathname === "string"
@@ -230,28 +244,19 @@ const FormComp = () => {
         console.error("Invalid queryParam");
       }
     } else if (pathname === "date") {
-      const validQueryParams = [
-        "getDate",
-        "getDay",
-        "getFullYear",
-        "getHours",
-        "getMinutes",
-        "getMonth",
-        "getSeconds",
-        "setDate",
-        "setFullYear",
-        "setHours",
-        "setMinutes",
-        "setMonth",
-        "setSeconds",
-        "toDateString",
-        "toISOString",
-        "toString",
-        "toTimeString",
-      ];
+      // prettier-ignore
+      const validQueryParams = [ "getDate", "getDay", "getFullYear", "getHours", "getMinutes", "getMonth", "getSeconds", "setDate", "setFullYear", "setHours", "setMinutes", "setMonth", "setSeconds", "toDateString", "toISOString", "toString", "toTimeString", ];
       if (validQueryParams.includes(queryParam)) {
         dispatch(getInput(value));
         dispatch(getParameter1(parameterValue));
+      } else {
+        console.error("Invalid queryParam");
+      }
+    } else if (pathname === "math") {
+      const validQueryParams = ["abs", "cbrt", "ceil", "floor", "max", "min", "pow", "random", "round"];
+      if (validQueryParams.includes(queryParam)) {
+        dispatch(getInput(value));
+        dispatch(getParameter2(parameterValue));
       } else {
         console.error("Invalid queryParam");
       }
@@ -265,6 +270,7 @@ const FormComp = () => {
       dispatch(getInput(e.target.value));
     }
   };
+
   return (
     <form onSubmit={testfunc} className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-md">
       <div className="mb-4 px-1">
@@ -288,7 +294,7 @@ const FormComp = () => {
               id="input"
               name="input"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 resize-none"
-              placeholder="Input"
+              placeholder={placeholderText}
               value={input}
               onChange={(e) => setInputFunc(e)}
             />

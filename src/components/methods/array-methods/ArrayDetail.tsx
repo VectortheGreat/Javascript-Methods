@@ -12,37 +12,30 @@ const ArrayDetails = () => {
     <div>
       <h1 className="text-4xl font-bold mb-4">Array</h1>
       <p className="mb-6">
-        The Array object, as with arrays in other programming languages, enables
-        storing a collection of multiple items under a single variable name, and
-        has members for performing common array operations.
+        The Array object, as with arrays in other programming languages, enables storing a collection of multiple items
+        under a single variable name, and has members for performing common array operations.
       </p>
 
       <h1 className="text-4xl font-bold mb-4">Description</h1>
       <p className="mb-6">
-        In JavaScript, arrays aren't primitives but are instead Array objects
-        with the following core characteristics:
+        In JavaScript, arrays aren't primitives but are instead Array objects with the following core characteristics:
       </p>
       <ul className="list-disc pl-4 mb-8">
         <li className="mb-2">
-          JavaScript arrays are resizable and can contain a mix of different
-          data types. (When those characteristics are undesirable, use typed
-          arrays instead.)
+          JavaScript arrays are resizable and can contain a mix of different data types. (When those characteristics are
+          undesirable, use typed arrays instead.)
         </li>
         <li className="mb-2">
-          JavaScript arrays are not associative arrays and so, array elements
-          cannot be accessed using arbitrary strings as indexes, but must be
-          accessed using nonnegative integers (or their respective string form)
-          as indexes.
+          JavaScript arrays are not associative arrays and so, array elements cannot be accessed using arbitrary strings
+          as indexes, but must be accessed using nonnegative integers (or their respective string form) as indexes.
         </li>
         <li className="mb-2">
-          JavaScript arrays are zero-indexed: the first element of an array is
-          at index 0, the second is at index 1, and so on — and the last element
-          is at the value of the array's length property minus 1.
+          JavaScript arrays are zero-indexed: the first element of an array is at index 0, the second is at index 1, and
+          so on — and the last element is at the value of the array's length property minus 1.
         </li>
         <li className="mb-2">
-          JavaScript array-copy operations create shallow copies. (All standard
-          built-in copy operations with any JavaScript objects create shallow
-          copies, rather than deep copies).
+          JavaScript array-copy operations create shallow copies. (All standard built-in copy operations with any
+          JavaScript objects create shallow copies, rather than deep copies).
         </li>
       </ul>
 
@@ -55,7 +48,7 @@ const ArrayDetails = () => {
           placeholder="Please enter JS code."
           onChange={(evn) => setStringDsc1(evn.target.value)}
           padding={15}
-          className="bg-gray-200 text-black font-mono"
+          className="bg-gray-500 text-white font-mono"
         />
         <CodeEditor
           disabled
@@ -64,7 +57,7 @@ const ArrayDetails = () => {
           placeholder="Please enter JS code."
           onChange={(evn) => setStringDsc2(evn.target.value)}
           padding={15}
-          className="bg-gray-200 text-black font-mono"
+          className="bg-gray-500 text-white font-mono"
         />
       </div>
     </div>

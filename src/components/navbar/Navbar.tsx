@@ -11,18 +11,20 @@ const Navbar = () => {
   const location = useLocation();
   const pathname = location.pathname;
   return (
-    <nav className="bg-yellow-300 p-4">
+    <nav className="bg-yellow-400 p-4 text-black">
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
-          <div className=" text-xl font-bold">Javascript Methods</div>
+          <Link to={"/"} className=" text-xl font-bold cursor-pointer">
+            Javascript Methods
+          </Link>
           <ul className="flex space-x-5">
             {Object.keys(pages).map((page) =>
               pathname === pages[page] ? (
-                <li key={page} className="text-lg border-b-2 border-black font-bold p-1">
+                <li key={page} className="text-lg border-b-2 border-black font-bold p-1 duration-300">
                   <Link to={pages[page]}>{page}</Link>
                 </li>
               ) : (
-                <li key={page} className="text-lg p-1 hover:bg-yellow-400 hover:rounded-md">
+                <li key={page} className="text-lg p-1 hover:bg-yellow-600 hover:rounded-md duration-300">
                   <Link to={pages[page]}>{page}</Link>
                 </li>
               )

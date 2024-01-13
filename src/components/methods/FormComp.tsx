@@ -9,6 +9,7 @@ import {
   getParameter1,
   getParameter2,
   getParameter3,
+  setMethodDescription,
   updateCodeResult,
 } from "../../redux/ValueSlice";
 import { useEffect, useState } from "react";
@@ -47,6 +48,9 @@ const FormComp = () => {
   const parameter1 = useSelector((state: { value: { parameter1: any } }) => state.value.parameter1);
   const parameter2 = useSelector((state: { value: { parameter2: any } }) => state.value.parameter2);
   const parameter3 = useSelector((state: { value: { parameter3: any } }) => state.value.parameter3);
+  const methodDescription = useSelector(
+    (state: { value: { methodDescription: string } }) => state.value.methodDescription
+  );
 
   const queryParam = useSelector((state: { value: { queryParam: string } }) => state.value.queryParam);
   const hideInputs: HideInputs = useSelector((state: { value: { hideInputs: HideInputs } }) => state.value.hideInputs);
@@ -67,6 +71,7 @@ const FormComp = () => {
     : `Parameter 3 (Required) - ${parameterDescriptions.parameterDescriptions3}`;
   const [placeholderText, setPlaceholderText] = useState("Input");
   useEffect(() => {
+    dispatch(setMethodDescription(""));
     dispatch(getInput(""));
     dispatch(getParameter1(""));
     dispatch(getParameter2(""));
@@ -272,9 +277,10 @@ const FormComp = () => {
   };
 
   return (
-    <form onSubmit={testfunc} className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-md">
-      <div className="mb-4 px-1">
+    <form onSubmit={testfunc} className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-md text-black">
+      <div className="mb-4 px-1 space-y-4">
         <h1 className="font-bold">{queryParam}()</h1>
+        <p className="text-sm">{methodDescription}</p>
       </div>
       <div className="mb-4 space-y-4">
         <div className="relative">
@@ -358,7 +364,7 @@ const FormComp = () => {
       </div>
       <div className="mb-4">
         <button
-          className="bg-yellow-300 hover:bg-orange-400  text-black p-2 rounded-md mx-auto block"
+          className="bg-yellow-300 hover:bg-orange-400 duration-300 text-black p-2 rounded-md mx-auto block"
           onClick={randomizerFunc}
         >
           Randomize

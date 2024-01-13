@@ -1,10 +1,13 @@
-import ArrayMethods from "../components/methods/arrayMethods/ArrayMethods";
+import PageContainer from "../components/container/PageContainer";
+import ArrayMethods from "../components/methods/array-methods/ArrayMethods";
 
 const Array = () => {
   return (
-    <div>
-      <ArrayMethods />
-    </div>
+    <>
+      <PageContainer>
+        <ArrayMethods />
+      </PageContainer>
+    </>
   );
 };
 

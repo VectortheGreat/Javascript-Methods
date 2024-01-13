@@ -1,30 +1,27 @@
-# React + TypeScript + Vite
+# Javascript Methods
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React Typescript Project about Javascript beginners will learn Javascript's most important methods.
 
-Currently, two official plugins are available:
+- [Demo](https://javascriptmethods.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features:
 
-## Expanding the ESLint configuration
+- **String, Number, Array, Date and Methods**
+- **Dynamically adding methods parameters and inputs**
+- **Clean code view**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Usage:
 
-- Configure the top-level `parserOptions` property like this:
+1. Open your terminal and run:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+   ```bash
+   npm install
+   ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Run the project with:
+
+   ```bash
+   npm run dev
+   ```
+
+Explore and enjoy the Javascript Methods experience! Feel free to contribute and make this project even better.

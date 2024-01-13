@@ -1,10 +1,13 @@
+import PageContainer from "../components/container/PageContainer";
 import NumberMethods from "../components/methods/number-methods/NumberMethods";
 
 const Number = () => {
   return (
-    <div>
-      <NumberMethods />
-    </div>
+    <>
+      <PageContainer>
+        <NumberMethods />
+      </PageContainer>
+    </>
   );
 };
 

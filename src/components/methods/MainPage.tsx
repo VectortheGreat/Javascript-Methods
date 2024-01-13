@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
-import StringDetail from "./stringMethods/StringDetail";
-import ArrayDetail from "./arrayMethods/ArrayDetail";
+import StringDetail from "./string-methods/StringDetail";
+import ArrayDetail from "./array-methods/ArrayDetail";
 import NumberDetail from "./number-methods/NumberDetail";
 import DateDetail from "./date-methods/DateDetail";
 import MathDetail from "./math-methods/MathDetail";

@@ -19,20 +19,15 @@ const Methods = ({ methods }: { methods: Record<string, string> }) => {
     };
   }, []);
   return (
-    <div
-      className="col-span-2 overflow-y-auto scrollbar-style"
-      style={{ maxHeight: `${pageHeight - 150}px` }}
-    >
+    <div className="col-span-2 overflow-y-auto scrollbar-style" style={{ maxHeight: `${pageHeight - 150}px` }}>
       <ul className="space-y-2">
         {Object.keys(methods).map((method) => (
           <li
             key={method}
             className={`cursor-pointer text-center rounded-md py-2 ${
-              method &&
-              queryParam &&
-              method.toLowerCase() === queryParam.toLowerCase()
-                ? "bg-orange-400 text-black hover:bg-yellow-400 transition-all"
-                : "bg-yellow-400 text-black hover:bg-orange-400 transition-all"
+              method && queryParam && method.toLowerCase() === queryParam.toLowerCase()
+                ? "bg-orange-400 text-black hover:bg-yellow-400 transition-all duration-300"
+                : "bg-yellow-400 text-black hover:bg-orange-400 transition-all duration-300"
             }`}
             onClick={() => handleOnClick(method)}
           >

@@ -26,7 +26,7 @@ const NumberDetail = () => {
           placeholder="Please enter JS code."
           onChange={(evn) => setNumberDsc1(evn.target.value)}
           padding={15}
-          className="bg-gray-100 text-black font-mono"
+          className="bg-gray-600 text-white font-mono"
         />
         <CodeEditor
           disabled
@@ -35,7 +35,7 @@ const NumberDetail = () => {
           placeholder="Please enter JS code."
           onChange={(evn) => setNumberDsc2(evn.target.value)}
           padding={15}
-          className="bg-gray-100 text-black font-mono"
+          className="bg-gray-600 text-white font-mono"
         />
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import {
   getOutput,
   setHideInputs,
+  setMethodDescription,
   setOptionalParameters,
   setParameterDescriptions,
   setQueryParam,
@@ -72,14 +73,29 @@ const NumberMethods = () => {
           dispatch(getOutput(Number.isInteger(input)));
         }
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        dispatch(
+          setMethodDescription(
+            "The Number.isInteger() static method determines whether the passed value is an integer."
+          )
+        );
         break;
       case "parseFloat":
         dispatch(getOutput(parseFloat(input)));
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        dispatch(
+          setMethodDescription(
+            "The Number.parseFloat() static method parses an argument and returns a floating point number. If a number cannot be parsed from the argument, it returns NaN."
+          )
+        );
         break;
       case "parseInt":
         dispatch(getOutput(parseInt(input)));
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        dispatch(
+          setMethodDescription(
+            "The Number.parseInt() static method parses a string argument and returns an integer of the specified radix or base."
+          )
+        );
         break;
       case "toFixed":
         numericInput = parseFloat(input);
@@ -91,6 +107,9 @@ const NumberMethods = () => {
           )
         );
         inputDispatchConfiguration("Optional", "Digit", undefined, undefined, undefined, undefined);
+        dispatch(
+          setMethodDescription("The toFixed() method of Number values formats this number using fixed-point notation.")
+        );
         break;
       case "toPrecision":
         numericInput = parseFloat(input);
@@ -102,14 +121,24 @@ const NumberMethods = () => {
           )
         );
         inputDispatchConfiguration("Optional", "Digit", undefined, undefined, undefined, undefined);
+        dispatch(
+          setMethodDescription(
+            "The toPrecision() method of Number values returns a string representing this number to the specified precision."
+          )
+        );
         break;
       case "toString":
         stringedValue = input.toString();
         dispatch(getOutput(stringedValue));
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        dispatch(
+          setMethodDescription(
+            "The toString() method of Number values returns a string representing this number value."
+          )
+        );
         break;
       default:
-        console.error("Error. Invalid Query Param");
+        queryParam !== undefined ? console.error("Error. Invalid Query Param") : null;
         break;
     }
   }, [queryParam, input, parameter1]);

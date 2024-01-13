@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import {
   getOutput,
   setHideInputs,
+  setMethodDescription,
   setOptionalParameters,
   setParameterDescriptions,
   setQueryParam,
@@ -69,41 +70,74 @@ const MathMethods = () => {
       case "abs":
         dispatch(getOutput(Math.abs(input)));
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        dispatch(setMethodDescription("The Math.abs() static method returns the absolute value of a number."));
         break;
       case "cbrt":
         dispatch(getOutput(Math.cbrt(input)));
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        dispatch(setMethodDescription("The Math.cbrt() static method returns the cube root of a number."));
         break;
       case "ceil":
         dispatch(getOutput(Math.ceil(input)));
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        dispatch(
+          setMethodDescription(
+            "The Math.ceil() static method always rounds up and returns the smallest integer greater than or equal to a given number."
+          )
+        );
         break;
       case "floor":
         dispatch(getOutput(Math.floor(input)));
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        dispatch(
+          setMethodDescription(
+            "The Math.floor() static method always rounds down and returns the largest integer less than or equal to a given number."
+          )
+        );
         break;
       case "max":
         dispatch(getOutput(Math.max(input, parameter2)));
         inputDispatchConfiguration(undefined, undefined, "Required", "Value", undefined, undefined);
+        dispatch(
+          setMethodDescription(
+            "The Math.max() static method returns the largest of the numbers given as input parameters, or -Infinity if there are no parameters."
+          )
+        );
         break;
       case "min":
         dispatch(getOutput(Math.min(input, parameter2)));
         inputDispatchConfiguration(undefined, undefined, "Required", "Value", undefined, undefined);
+        dispatch(
+          setMethodDescription(
+            "The Math.min() static method returns the smallest of the numbers given as input parameters, or Infinity if there are no parameters."
+          )
+        );
         break;
       case "pow":
         dispatch(getOutput(Math.pow(input, parameter2)));
         inputDispatchConfiguration(undefined, undefined, "Required", "Value", undefined, undefined);
+        dispatch(setMethodDescription("The Math.pow() static method returns the value of a base raised to a power."));
         break;
       case "random":
         dispatch(getOutput(input ? Math.random() * input : Math.random()));
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        dispatch(
+          setMethodDescription(
+            "The Math.random() static method returns a floating-point, pseudo-random number that's greater than or equal to 0 and less than 1, with approximately uniform distribution over that range — which you can then scale to your desired range. The implementation selects the initial seed to the random number generation algorithm; it cannot be chosen or reset by the user."
+          )
+        );
         break;
       case "round":
         dispatch(getOutput(Math.round(input)));
         inputDispatchConfiguration(undefined, undefined, undefined, undefined, undefined, undefined);
+        dispatch(
+          setMethodDescription(
+            "The Math.round() static method returns the value of a number rounded to the nearest integer."
+          )
+        );
         break;
       default:
-        console.error("Error. Invalid Query Param");
+        queryParam !== undefined ? console.error("Error. Invalid Query Param") : null;
         break;
     }
   }, [queryParam, input, parameter1, parameter2]);

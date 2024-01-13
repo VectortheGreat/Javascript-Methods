@@ -2,6 +2,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  methodDescription: "",
   input: undefined,
   inputArray: undefined,
   parameter1: undefined,
@@ -31,6 +32,9 @@ const ValueSlice = createSlice({
   name: "value",
   initialState,
   reducers: {
+    setMethodDescription: (state, action) => {
+      state.methodDescription = action.payload;
+    },
     getInput: (state, action) => {
       state.input = action.payload;
     },
@@ -48,7 +52,6 @@ const ValueSlice = createSlice({
     },
     getOutput: (state, action) => {
       state.output = action.payload;
-      console.log(state.output);
     },
     setQueryParam: (state, action) => {
       state.queryParam = action.payload;
@@ -69,12 +72,15 @@ const ValueSlice = createSlice({
       };
     },
     updateCodeResult: (state, action: PayloadAction<string>) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
       state.codeResult = action.payload;
     },
   },
 });
 
 export const {
+  setMethodDescription,
   getInput,
   getInputArray,
   getOutput,

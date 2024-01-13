@@ -27,8 +27,6 @@ const NumberMethods = () => {
   const queryParam = useSelector((state: { value: { queryParam: string } }) => state.value.queryParam);
   const input = useSelector((state: { value: { input: any } }) => state.value.input);
   const parameter1 = useSelector((state: { value: { parameter1: any } }) => state.value.parameter1);
-  const parameter2 = useSelector((state: { value: { parameter2: any } }) => state.value.parameter2);
-  const parameter3 = useSelector((state: { value: { parameter3: any } }) => state.value.parameter3);
   const inputDispatchConfiguration = (
     parameter1: any,
     parameter1Desc: any,
@@ -114,7 +112,7 @@ const NumberMethods = () => {
         console.error("Error. Invalid Query Param");
         break;
     }
-  }, [queryParam, input, parameter1, parameter2, parameter3]);
+  }, [queryParam, input, parameter1]);
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-10">{queryParam ? <FormComp></FormComp> : <MainPage></MainPage>}</div>

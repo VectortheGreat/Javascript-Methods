@@ -375,6 +375,67 @@ export const printCode = (
       case "toString":
         return `const input = ${input}; \nconsole.log(input.toString());`;
     }
+  } else if (pathname === "date") {
+    switch (param) {
+      case "getDate":
+        return `const date = new Date("${input}"); \nconsole.log(date.getDate());`;
+      case "getDay":
+        return `const date = new Date("${input}"); \nconsole.log(date.getDay());`;
+      case "getFullYear":
+        return `const date = new Date("${input}"); \nconsole.log(date.getFullYear());`;
+      case "getHours":
+        return `const date = new Date("${input}"); \nconsole.log(date.getHours());`;
+      case "getMinutes":
+        return `const date = new Date("${input}"); \nconsole.log(date.getMinutes());`;
+      case "getMonth":
+        return `const date = new Date("${input}"); \nconsole.log(date.getMonth());`;
+      case "getSeconds":
+        return `const date = new Date("${input}"); \nconsole.log(date.getSeconds());`;
+      case "setDate":
+        if (parameter1) {
+          return `const date = new Date("${input}"); \ndate.setDate(${parameter1}) \nconsole.log(date);`;
+        } else {
+          return `const date = new Date("${input}"); \ndate.setDate() \nconsole.log(date);`;
+        }
+      case "setFullYear":
+        if (parameter1) {
+          return `const date = new Date("${input}"); \ndate.setFullYear(${parameter1}) \nconsole.log(date);`;
+        } else {
+          return `const date = new Date("${input}"); \ndate.setFullYear() \nconsole.log(date);`;
+        }
+      case "setHours":
+        if (parameter1) {
+          return `const date = new Date("${input}"); \ndate.setHours(${parameter1}) \nconsole.log(date);`;
+        } else {
+          return `const date = new Date("${input}"); \ndate.setHours() \nconsole.log(date);`;
+        }
+      case "setMinutes":
+        if (parameter1) {
+          return `const date = new Date("${input}"); \ndate.setMinutes(${parameter1}) \nconsole.log(date);`;
+        } else {
+          return `const date = new Date("${input}"); \ndate.setMinutes() \nconsole.log(date);`;
+        }
+      case "setMonth":
+        if (parameter1) {
+          return `const date = new Date("${input}"); \ndate.setMonth(${parameter1}) \nconsole.log(date);`;
+        } else {
+          return `const date = new Date("${input}"); \ndate.setMonth() \nconsole.log(date);`;
+        }
+      case "setSeconds":
+        if (parameter1) {
+          return `const date = new Date("${input}"); \ndate.setSeconds(${parameter1}) \nconsole.log(date);`;
+        } else {
+          return `const date = new Date("${input}"); \ndate.setSeconds() \nconsole.log(date);`;
+        }
+      case "toDateString":
+        return `const date = new Date("${input}"); \nconsole.log(date.toDateString());`;
+      case "toISOString":
+        return `const date = new Date("${input}"); \nconsole.log(date.toISOString());`;
+      case "toString":
+        return `const date = new Date("${input}"); \nconsole.log(date.toString());`;
+      case "toTimeString":
+        return `const date = new Date("${input}"); \nconsole.log(date.toTimeString());`;
+    }
   } else {
     console.error("Invalid Pathname");
   }

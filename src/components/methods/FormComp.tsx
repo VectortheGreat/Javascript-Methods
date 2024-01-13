@@ -17,6 +17,7 @@ import { useLocation } from "react-router-dom";
 import { printCode } from "../../helpers/printCode";
 import { arrayInputRandomizer, arrayParameterRandomizer } from "../../helpers/arrayRandomizer";
 import { numberInputRandomizer, numberParameterRandomizer } from "../../helpers/numberRandomizer";
+import { dateInputRandomizer, dateParameterRandomizer } from "../../helpers/dateRandomizer";
 
 type HideInputs = {
   hideParameter1: boolean;
@@ -97,6 +98,8 @@ const FormComp = () => {
         ? arrayInputRandomizer[queryParam as keyof typeof arrayInputRandomizer][randomNumber]
         : pathname === "number"
         ? numberInputRandomizer[queryParam as keyof typeof numberInputRandomizer][randomNumber]
+        : pathname === "date"
+        ? dateInputRandomizer[queryParam as keyof typeof dateInputRandomizer][randomNumber]
         : null;
     const parameterValue =
       pathname === "string"
@@ -105,6 +108,8 @@ const FormComp = () => {
         ? arrayParameterRandomizer[queryParam as keyof typeof arrayParameterRandomizer][randomNumber2]
         : pathname === "number"
         ? numberParameterRandomizer[queryParam as keyof typeof numberParameterRandomizer][randomNumber2]
+        : pathname === "date"
+        ? dateParameterRandomizer[queryParam as keyof typeof dateParameterRandomizer][randomNumber2]
         : null;
     const parameterValue2 =
       pathname === "string"
@@ -219,6 +224,32 @@ const FormComp = () => {
       const validQueryParams = ["isInteger", "parseFloat", "parseInt", "toFixed", "toPrecision", "toString"];
       if (validQueryParams.includes(queryParam)) {
         dispatch(getOutput(""));
+        dispatch(getInput(value));
+        dispatch(getParameter1(parameterValue));
+      } else {
+        console.error("Invalid queryParam");
+      }
+    } else if (pathname === "date") {
+      const validQueryParams = [
+        "getDate",
+        "getDay",
+        "getFullYear",
+        "getHours",
+        "getMinutes",
+        "getMonth",
+        "getSeconds",
+        "setDate",
+        "setFullYear",
+        "setHours",
+        "setMinutes",
+        "setMonth",
+        "setSeconds",
+        "toDateString",
+        "toISOString",
+        "toString",
+        "toTimeString",
+      ];
+      if (validQueryParams.includes(queryParam)) {
         dispatch(getInput(value));
         dispatch(getParameter1(parameterValue));
       } else {

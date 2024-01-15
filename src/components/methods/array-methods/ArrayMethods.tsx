@@ -402,9 +402,11 @@ const ArrayMethods = () => {
     }
   }, [queryParam, inputArray, parameter1, parameter2, parameter3]);
   return (
-    <div className="grid grid-cols-12">
-      <div className="col-span-10">{queryParam ? <FormComp></FormComp> : <MainPage></MainPage>}</div>
+    <div className="grid grid-cols-12 ">
       <Methods methods={methods}></Methods>
+      <div className="col-span-12 md:col-span-10 lg:col-span-10 xl:col-span-10 2xl:col-span-10 mt-5">
+        {queryParam ? <FormComp></FormComp> : <MainPage></MainPage>}
+      </div>
     </div>
   );
 };
